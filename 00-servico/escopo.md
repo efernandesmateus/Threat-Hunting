@@ -68,7 +68,7 @@ Valores de **referência**, ajustáveis por contrato:
 
 | Situação | Prazo de referência |
 |----------|---------------------|
-| Achado classificado como **malicioso** | Notificação ao cliente em até **2 hora** após a confirmação. |
+| Achado classificado como **malicioso** | Notificação ao cliente em até **2 horas** após a confirmação. |
 | Achado **suspeito** que depende de informação do cliente | Consulta ao ponto focal em até **1 dia útil**. |
 | Outros achados (configuração, visibilidade) | Registrados no relatório periódico. |
 | Relatório periódico | Até **5 dias úteis** após o fim do ciclo. |
