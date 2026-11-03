@@ -1,0 +1,53 @@
+# ------------------------------------------------------------
+# Proteção contra commit de dados operacionais e evidências.
+# Este repositório guarda apenas metodologia (ver CONTRIBUTING.md).
+# ------------------------------------------------------------
+
+# Logs e exports
+*.log
+*.evtx
+*.etl
+exports/
+evidencias/
+evidence/
+
+# Capturas de rede
+*.pcap
+*.pcapng
+*.cap
+
+# Imagens forenses e memória
+*.e01
+*.dd
+*.raw
+*.mem
+*.dmp
+*.vmem
+
+# Amostras e arquivos compactados (podem conter malware ou dados)
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+samples/
+amostras/
+
+# Segredos
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+secrets*
+credenciais*
+
+# Sistema operacional e editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+~$*
