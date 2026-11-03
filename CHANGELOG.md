@@ -10,6 +10,19 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [0.6.0] - 2026-11-03
+
+### Adicionado
+
+- `04-onboarding/checklist-onboarding.md`: roteiro de onboarding em seis fases (kick-off, acessos, dados, contexto, planejamento e aceite), com responsáveis, regras de acesso do SOC e manutenção após o onboarding.
+- `04-onboarding/template-ficha-cliente.md`: modelo da ficha com os acordos do onboarding.
+- `04-onboarding/template-inventario-fontes.md`: modelo do inventário de fontes de dados, com oito categorias de fonte e critérios de qualidade em três níveis.
+- `04-onboarding/matriz-de-cobertura.md`: método de viabilidade dos hunts (Viável, Parcial, Inviável), modelo da matriz, priorização das recomendações de visibilidade e mapa de referência das fontes por hunt.
+
+### Alterado
+
+- `04-onboarding/README.md`: índice dos documentos.
+
 ## [0.5.0] - 2026-11-03
 
 ### Adicionado

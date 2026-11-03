@@ -2,7 +2,7 @@
 
 Metodologia aberta para estruturar e operar um **serviço de threat hunting** em SOCs e provedores de serviços gerenciados de segurança (MSSPs): definição do serviço, processo, templates, biblioteca de hunts, onboarding de clientes e avaliação de maturidade.
 
-> **Status:** em construção (v0.5.0). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
+> **Status:** em construção (v0.6.0). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
 
 ## O que é threat hunting neste projeto
 
@@ -65,7 +65,7 @@ Este repositório guarda **metodologia**, nunca dados operacionais. Não inclua 
 - [x] Processo operacional
 - [x] Primeiro hunt da biblioteca (exfiltração via DNS)
 - [x] Template de relatório e métricas
-- [ ] Onboarding de cliente
+- [x] Onboarding de cliente
 - [ ] Assessment de maturidade
 
 **Biblioteca (a partir da v1.1.0)**
