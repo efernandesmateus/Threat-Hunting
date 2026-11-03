@@ -10,6 +10,27 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [0.3.0] - 2026-11-03
+
+### Adicionado
+
+- `01-processo/identificacao-de-hunts.md`: fontes de hipóteses, gatilhos e avaliação de ameaças por cliente.
+- `01-processo/desenvolvimento-de-hunts.md`: as 7 etapas do desenvolvimento de um hunt, de Rascunho a Ativo, com revisão por pares.
+- `01-processo/backlog-e-priorizacao.md`: backlogs da biblioteca e por cliente, viabilidade dos dados como critério eliminatório, pontuação de prioridade, Pirâmide da Dor, cadência, rotação e hunts extraordinários.
+- `01-processo/execucao-de-hunts.md`: ciclo mensal em 6 fases, checklist de preparação, campos mínimos do registro de execução e tratamento de hunts não executáveis.
+- `01-processo/escalonamento.md`: severidade em 4 níveis, escalonamento interno, fluxos por modo de resposta, conteúdo da notificação e preservação de evidências.
+- `01-processo/automacao-e-melhoria.md`: critérios e fluxo do "hunt once", lições aprendidas e melhoria contínua.
+- Diagramas Mermaid dos principais fluxos.
+- ADR 0004: neutralidade de fabricante.
+
+### Alterado
+
+- `01-processo/README.md`: índice, diagrama do ciclo completo e diferença entre desenvolvimento e execução.
+- `02-templates/README.md`: exceção no ciclo de vida para hunts extraordinários em validação.
+- Removidas todas as menções a fabricantes e produtos comerciais (README, CONTRIBUTING, template de hunt, resumo do OTHF e demais documentos). Capacidades passam a ser descritas pelo tipo (SIEM, EDR, XDR).
+- `02-templates/template-hunt.md`: seção 8 passa a ser organizada por tipo de plataforma.
+- `CONTRIBUTING.md`: tabela de táticas atualizada para o MITRE ATT&CK Enterprise v20 (15 táticas). Defense Evasion (`DEF`), aposentada no ATT&CK v19, foi substituída por Stealth (`STL`, TA0005) e Defense Impairment (`DIM`, TA0112). Incluídos os IDs das táticas e a regra de atualização do ATT&CK.
+
 ## [0.2.0] - 2026-11-03
 
 ### Adicionado

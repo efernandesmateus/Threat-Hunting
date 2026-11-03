@@ -2,7 +2,7 @@
 
 Metodologia aberta para estruturar e operar um **serviço de threat hunting** em SOCs e provedores de serviços gerenciados de segurança (MSSPs): definição do serviço, processo, templates, biblioteca de hunts, onboarding de clientes e avaliação de maturidade.
 
-> **Status:** em construção (v0.2.0). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
+> **Status:** em construção (v0.3.0). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
 
 ## O que é threat hunting neste projeto
 
@@ -41,14 +41,11 @@ Resumo de cada módulo do OTHF e como ele foi aproveitado: [`referencias/OTHF/`]
 | [`decisoes/`](decisoes/) | Registro das decisões de design do projeto (ADRs) | — |
 | [`referencias/`](referencias/) | Material de referência externo e licenças | — |
 
-## Plataformas
+## Neutralidade de fabricante
 
-A metodologia é **agnóstica de ferramenta**. As consultas específicas ficam em seções próprias dentro de cada hunt. Plataformas cobertas inicialmente:
+A metodologia é **agnóstica de ferramenta** e **não cita fabricantes nem produtos**. Ela descreve o que buscar e por quê, em termos de comportamento, fontes de dados e técnicas MITRE ATT&CK, para que possa ser aplicada em qualquer plataforma de SIEM, EDR ou XDR (ver [ADR 0004](decisoes/0004-neutralidade-de-fabricante.md)).
 
-- USM Anywhere (LevelBlue)
-- CrowdStrike Falcon / Next-Gen SIEM
-
-Contribuições com consultas para outras plataformas (Microsoft Sentinel, Splunk, Elastic, entre outras) são bem-vindas. O projeto **não depende de API de fornecedor** para funcionar (ver [ADR 0002](decisoes/0002-independencia-de-api-de-fornecedor.md)).
+O projeto também **não depende de API de fornecedor** para funcionar (ver [ADR 0002](decisoes/0002-independencia-de-api-de-fornecedor.md)).
 
 ## Regra de ouro: nenhum dado real
 
@@ -59,7 +56,7 @@ Este repositório guarda **metodologia**, nunca dados operacionais. Não inclua 
 - [x] Fundação: estrutura, convenções, decisões iniciais, referência ao OTHF
 - [x] Template de hunt
 - [x] Definição do serviço
-- [ ] Processo operacional
+- [x] Processo operacional
 - [ ] Primeiro hunt da biblioteca (exfiltração)
 - [ ] Template de relatório e métricas
 - [ ] Onboarding de cliente

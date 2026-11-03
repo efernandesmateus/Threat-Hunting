@@ -30,6 +30,7 @@ Antes de cada commit, revise o diff procurando qualquer item da lista acima.
 
 - Português do Brasil.
 - Termos técnicos consagrados podem ficar em inglês: hunt, hunting, IOC, TTP, stacking, baseline, false positive.
+- Não cite fabricantes nem produtos comerciais. Descreva a capacidade pelo tipo: "o EDR", "o SIEM", "o firewall", "o serviço de diretório". Frameworks e projetos abertos de referência (MITRE ATT&CK, OTHF) podem ser citados.
 - Texto objetivo, voltado a um analista que vai executar o procedimento.
 
 ## 3. Formato e nomes
@@ -44,22 +45,32 @@ Antes de cada commit, revise o diff procurando qualquer item da lista acima.
 - **ID:** `TH-<TÁTICA>-<NNN>`, onde `<TÁTICA>` é uma das siglas abaixo e `<NNN>` é sequencial dentro da tática. Ex.: `TH-EXF-001`.
 - **Arquivo:** `03-biblioteca/<tatica>/<id-em-minusculas>-<descricao-curta>.md`. Ex.: `03-biblioteca/exfiltration/th-exf-001-exfiltracao-via-dns.md`.
 
-| Sigla | Tática MITRE ATT&CK  | Pasta                   |
-|-------|----------------------|-------------------------|
-| REC   | Reconnaissance       | `reconnaissance`        |
-| RES   | Resource Development | `resource-development`  |
-| INI   | Initial Access       | `initial-access`        |
-| EXE   | Execution            | `execution`             |
-| PER   | Persistence          | `persistence`           |
-| PRV   | Privilege Escalation | `privilege-escalation`  |
-| DEF   | Defense Evasion      | `defense-evasion`       |
-| CRD   | Credential Access    | `credential-access`     |
-| DIS   | Discovery            | `discovery`             |
-| LAT   | Lateral Movement     | `lateral-movement`      |
-| COL   | Collection           | `collection`            |
-| C2    | Command and Control  | `command-and-control`   |
-| EXF   | Exfiltration         | `exfiltration`          |
-| IMP   | Impact               | `impact`                |
+As siglas seguem as táticas da matriz **MITRE ATT&CK Enterprise v20** (15 táticas):
+
+| Sigla | Tática MITRE ATT&CK  | ID     | Pasta                   |
+|-------|----------------------|--------|-------------------------|
+| REC   | Reconnaissance       | TA0043 | `reconnaissance`        |
+| RES   | Resource Development | TA0042 | `resource-development`  |
+| INI   | Initial Access       | TA0001 | `initial-access`        |
+| EXE   | Execution            | TA0002 | `execution`             |
+| PER   | Persistence          | TA0003 | `persistence`           |
+| PRV   | Privilege Escalation | TA0004 | `privilege-escalation`  |
+| STL   | Stealth              | TA0005 | `stealth`               |
+| DIM   | Defense Impairment   | TA0112 | `defense-impairment`    |
+| CRD   | Credential Access    | TA0006 | `credential-access`     |
+| DIS   | Discovery            | TA0007 | `discovery`             |
+| LAT   | Lateral Movement     | TA0008 | `lateral-movement`      |
+| COL   | Collection           | TA0009 | `collection`            |
+| C2    | Command and Control  | TA0011 | `command-and-control`   |
+| EXF   | Exfiltration         | TA0010 | `exfiltration`          |
+| IMP   | Impact               | TA0040 | `impact`                |
+
+> **Atenção à mudança da v19:** a tática **Defense Evasion** foi aposentada no ATT&CK v19 (abril de 2026) e substituída por **Stealth**, que reaproveita o ID TA0005, e **Defense Impairment** (TA0112). Ao usar fontes anteriores a essa versão, remapeie a técnica pela intenção do adversário: **esconder-se** (Stealth) ou **quebrar ou desativar defesas** (Defense Impairment). Como o ID TA0005 mudou de significado, sempre use o **nome** da tática junto com o ID.
+
+### Atualização do ATT&CK
+
+- A versão do ATT&CK de referência é a indicada acima. Ao sair uma nova versão, verifique as notas de lançamento e atualize esta tabela e os mapeamentos dos hunts afetados.
+- Hunts mapeados para técnicas revogadas ou movidas de tática devem ser revisados, conforme a regra de [versionamento](02-templates/README.md#versionamento-do-hunt).
 
 Quando um hunt cobrir várias táticas, classifique-o pela tática principal e liste as demais no próprio documento.
 
@@ -67,7 +78,7 @@ Quando um hunt cobrir várias táticas, classifique-o pela tática principal e l
 
 - Só inclua sintaxe de consulta validada na plataforma.
 - Consulta não validada deve ser marcada com `TODO: validar` e não pode ser usada em cliente até a validação.
-- Cada consulta indica a plataforma e, quando relevante, a versão ou o módulo (ex.: USM Anywhere — Events; CrowdStrike — Advanced Event Search).
+- Cada consulta indica o **tipo** de plataforma (SIEM, EDR, XDR) e onde ela deve ser executada, sem citar fabricantes ou produtos (ver [ADR 0004](decisoes/0004-neutralidade-de-fabricante.md)).
 
 ## 6. Fluxo de trabalho no Git
 

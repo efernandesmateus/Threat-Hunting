@@ -38,13 +38,13 @@ Apresenta o propósito do framework: dar base conceitual sobre threat hunting e 
 ### 4 — Preparation
 
 - **Dados:** sem dados não há hunting. Lista categorias de fontes (rede, endpoints, aplicações, ferramentas de segurança, controles físicos).
-- **Dicionário de dados:** inventário padronizado das fontes e seus campos. Cita OSSEM, MITRE CAR e o Collection Management Framework da Dragos como apoio.
+- **Dicionário de dados:** inventário padronizado das fontes e seus campos. Cita projetos abertos de dicionário de dados e de análise (como o MITRE CAR) e um framework de gestão de coleta como apoio.
 - **Confiabilidade:** critérios de qualidade dos dados (precisão, completude, consistência, atualidade, unicidade, validade).
 - **Stack tecnológica** necessária para coletar e analisar os dados.
 
 ### 5 — Threat Hunting Labs
 
-Ambientes de laboratório para gerar dados de teste: BlueCloud (Terraform/Ansible em AWS ou Azure) e Vagrantfiles próprios do OTHF com Active Directory enviando logs para Splunk ou ELK.
+Ambientes de laboratório para gerar dados de teste: infraestrutura como código em nuvem pública e máquinas virtuais próprias do OTHF, com um domínio enviando logs para plataformas de SIEM.
 
 > **Atenção:** os laboratórios do OTHF usam credenciais padrão publicadas no próprio repositório. Se forem usados, devem ficar isolados e ter as senhas trocadas.
 
@@ -53,11 +53,11 @@ Ambientes de laboratório para gerar dados de teste: BlueCloud (Terraform/Ansibl
 O módulo central. Resume o framework em cinco passos: conhecer as ameaças aplicáveis, entender seus TTPs, desenvolver um hunt por TTP, automatizar os hunts e revalidar periodicamente.
 
 - **Identificação de hunts:** por inteligência (estratégica e tática, com MITRE ATT&CK e o catálogo de grupos da ETDA), avaliação de ameaças (quem ataca o setor, o que busca, qual o impacto, como faria), vulnerabilidades e exploits, superfície de ataque, missão da organização e observação do ambiente.
-- **Processo de hunting do OTHF:** definir um objetivo (critérios SMART) → desenvolver a hipótese (formato "se... então" ou "dado, quando, então") → validar se os dados existem e têm qualidade → gerar dados de teste (ex.: Atomic Red Team) → definir a estratégia de busca comparando o normal com o sinal do ataque → validar o hunt em dados históricos e ajustar falsos positivos → documentar os achados. Também apresenta o processo TaHiTI.
+- **Processo de hunting do OTHF:** definir um objetivo (critérios SMART) → desenvolver a hipótese (formato "se... então" ou "dado, quando, então") → validar se os dados existem e têm qualidade → gerar dados de teste (ex.: testes abertos de emulação de adversário) → definir a estratégia de busca comparando o normal com o sinal do ataque → validar o hunt em dados históricos e ajustar falsos positivos → documentar os achados. Também apresenta o processo TaHiTI.
 - **Cadência:** gatilhos para novos hunts (nova inteligência, incidentes, pentests, tabletop, outros hunts, ativos críticos, modelagem de ameaças, regulação), backlog, priorização (com foco no topo da Pirâmide da Dor) e agendamento.
 - **Automação:** abordagem "hunt once" — executar o hunt uma vez e convertê-lo em detecção contínua, com critérios para essa migração.
 - **Melhoria contínua:** lições aprendidas após cada hunt.
-- **Maturidade:** cita o modelo do SQRRL e propõe o modelo do OTHF, com níveis de 0 a 3 em cinco eixos: Pessoas, Processo, Fontes de dados, Threat intel e Métricas. Inclui um arquivo de apresentação com o modelo.
+- **Maturidade:** cita o Hunting Maturity Model (HMM) e propõe o modelo do OTHF, com níveis de 0 a 3 em cinco eixos: Pessoas, Processo, Fontes de dados, Threat intel e Métricas. Inclui um arquivo de apresentação com o modelo.
 
 ### 7 — Measurement
 
@@ -77,7 +77,7 @@ Exemplo de avaliação de ameaças para uma empresa de varejo, usando MITRE ATT&
 
 ### 10 — Hunt Data Sources
 
-Aprofundamento em artefatos Windows: Shimcache, Amcache, Autoruns, Prefetch, processos em execução, conexões de rede ativas, metadados de executáveis, serviços e logs de eventos. Para cada um: campos importantes, valor para hunting, técnicas e triagem.
+Aprofundamento em artefatos de endpoint: Shimcache, Amcache, Autoruns, Prefetch, processos em execução, conexões de rede ativas, metadados de executáveis, serviços e logs de eventos. Para cada um: campos importantes, valor para hunting, técnicas e triagem.
 
 ### 11 — Hunting Techniques
 
@@ -85,7 +85,7 @@ Técnicas de análise: stacking (contagem de frequência para achar o raro), enr
 
 ### Materiais extras
 
-- **Practice and Sample Content:** três cenários para praticar a formulação de objetivo e hipótese (um deles sobre exploração do ProxyLogon no Exchange).
+- **Practice and Sample Content:** três cenários para praticar a formulação de objetivo e hipótese (um deles sobre a exploração de uma vulnerabilidade em servidor de e-mail).
 - **Sample Scripts:** scripts Python com a biblioteca pyattck para mapear grupos adversários a técnicas e priorizar as mais usadas.
 
 ## Como o OTHF é aproveitado neste serviço
@@ -104,6 +104,7 @@ Técnicas de análise: stacking (contagem de frequência para achar o raro), enr
 ## Limitações conhecidas
 
 - Sem atualizações desde maio de 2023.
-- Conteúdo técnico centrado em endpoints Windows; pouco sobre nuvem, identidade e rede.
+- Conteúdo técnico centrado em artefatos de endpoint; pouco sobre nuvem, identidade e rede.
+- Cita fabricantes e produtos em vários pontos; neste projeto, essas referências foram generalizadas (ver ADR 0004).
 - Escrito para um time interno, não para MSSP.
 - Algumas seções estão incompletas no original (ex.: exemplo de proposta no apêndice).

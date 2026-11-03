@@ -20,7 +20,7 @@ Modelos padronizados usados pelo serviço.
 | Status | Significado | Pode ser executado em cliente? |
 |--------|-------------|--------------------------------|
 | **Rascunho** | Em elaboração | Não |
-| **Em validação** | Completo, sendo testado com dados de teste e histórico | Não |
+| **Em validação** | Completo, sendo testado com dados de teste e histórico | Não (exceto hunts extraordinários, ver [backlog e priorização](../01-processo/backlog-e-priorizacao.md#hunts-extraordinários)) |
 | **Ativo** | Validado em pelo menos uma plataforma e revisado | Sim, nas plataformas com consulta validada |
 | **Automatizado** | Convertido em regra de detecção; executado manualmente só quando necessário | Sim |
 | **Descontinuado** | Obsoleto ou substituído (indicar o substituto) | Não |

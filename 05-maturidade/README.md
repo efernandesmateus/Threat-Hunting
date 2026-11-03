@@ -10,6 +10,6 @@ Avalia a maturidade de threat hunting do cliente e acompanha sua evolução.
 
 ## Origem no OTHF
 
-Módulo 6 (Operational), seção Maturity, e o modelo de maturidade do SQRRL citado pelo OTHF.
+Módulo 6 (Operational), seção Maturity, e o Hunting Maturity Model (HMM) citado pelo OTHF.
 
 **Status:** a fazer.

@@ -16,7 +16,7 @@ Guia de preenchimento: 02-templates/README.md
 | **Versão** | 0.1 |
 | **Status** | Rascunho |
 | **Tática principal** | <Tática MITRE ATT&CK> |
-| **Plataformas com consulta validada** | <Nenhuma / USM Anywhere / CrowdStrike> |
+| **Tipos de plataforma com consulta validada** | <Nenhum / SIEM / EDR / XDR> |
 | **Esforço estimado por execução** | <ex.: 1–2 h por cliente> |
 | **Autor** | <nome> |
 | **Revisor** | <nome> |
@@ -27,7 +27,7 @@ Guia de preenchimento: 02-templates/README.md
 
 <!--
 Uma frase SMART: o que o hunt quer descobrir, onde e em qual período.
-Ex.: "Identificar, nos últimos 30 dias, hosts Windows que enviaram volumes anômalos de dados via DNS para domínios externos."
+Ex.: "Identificar, nos últimos 30 dias, estações de trabalho que enviaram volumes anômalos de dados via DNS para domínios externos."
 -->
 
 ## 2. Origem e contexto
@@ -70,7 +70,7 @@ Obrigatória = sem ela o hunt não pode ser executado. Complementar = melhora o 
 |-------|-----------------------------|-----------------|--------------|
 | | | | |
 
-**Escopo de ativos:** <ex.: estações Windows, servidores Linux, controladores de domínio, tenant de nuvem>
+**Escopo de ativos:** <ex.: estações de trabalho, servidores, controladores de domínio, ambiente de nuvem>
 
 ## 6. Comportamento normal (baseline)
 
@@ -98,29 +98,19 @@ Descreva em passos o que buscar, como filtrar o normal e o que destacar.
 ## 8. Consultas por plataforma
 
 <!--
-Uma subseção por plataforma. Status: Validada / TODO: validar.
-Consulta com "TODO: validar" não pode ser executada em cliente.
-Registre a data e a plataforma em que foi validada.
+Uma subseção por tipo de plataforma em que o hunt foi implementado (SIEM, EDR, XDR).
+Não cite fabricantes nem produtos (ADR 0004).
+Status: Validada / TODO: validar. Consulta com "TODO: validar" não pode ser executada em cliente.
+Registre a data em que foi validada.
 -->
 
-### 8.1 USM Anywhere (LevelBlue)
+### 8.1 <Tipo de plataforma: SIEM / EDR / XDR>
 
 **Status:** TODO: validar
-**Onde executar:** <ex.: Activity > Events>
+**Onde executar:** <ex.: busca de eventos, busca avançada de telemetria>
 
 ```text
 <consulta ou filtros>
-```
-
-**Observações:**
-
-### 8.2 CrowdStrike Falcon / Next-Gen SIEM
-
-**Status:** TODO: validar
-**Onde executar:** <ex.: Next-Gen SIEM > Advanced Event Search>
-
-```text
-<consulta>
 ```
 
 **Observações:**
@@ -129,13 +119,13 @@ Registre a data e a plataforma em que foi validada.
 
 <!--
 Como foi comprovado que o hunt encontra o que promete.
-Dados de teste: ex. teste do Atomic Red Team, script de laboratório, simulação manual.
+Dados de teste: ex. teste de emulação de adversário mapeado à técnica ATT&CK, script de laboratório, simulação manual.
 Validação histórica: execução em período longo para medir ruído.
 -->
 
 | Item | Detalhe |
 |------|---------|
-| **Dados de teste usados** | <ex.: Atomic Red Team T0000 teste N> |
+| **Dados de teste usados** | <ex.: teste de emulação da técnica T0000> |
 | **Ambiente de teste** | <ex.: laboratório interno> |
 | **Resultado com dados de teste** | <detectou / não detectou> |
 | **Período histórico testado** | <ex.: 30 dias> |

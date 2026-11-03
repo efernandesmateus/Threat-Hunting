@@ -21,5 +21,5 @@ Usar o OTHF como base metodológica do projeto, **adaptando-o ao modelo de servi
 
 - O projeto herda uma estrutura reconhecível e defensável.
 - É preciso manter a atribuição e a licença MIT do OTHF em `referencias/OTHF/`.
-- O OTHF não recebe atualizações desde maio de 2023 e seu conteúdo técnico é centrado em artefatos de endpoint Windows. A biblioteca de hunts precisa de fontes complementares (ex.: MITRE ATT&CK, documentação das plataformas).
+- O OTHF não recebe atualizações desde maio de 2023 e seu conteúdo técnico é centrado em artefatos de endpoint. A biblioteca de hunts precisa de fontes complementares (ex.: MITRE ATT&CK, documentação das plataformas).
 - O OTHF não traz detecções prontas; a biblioteca de hunts é desenvolvida neste projeto.
