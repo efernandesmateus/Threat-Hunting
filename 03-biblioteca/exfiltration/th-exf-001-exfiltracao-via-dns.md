@@ -3,7 +3,7 @@
 | Campo | Valor |
 |-------|-------|
 | **ID** | TH-EXF-001 |
-| **Versão** | 1.0 |
+| **Versão** | 1.1 |
 | **Status** | Proposto |
 | **Tática principal** | Exfiltration (TA0010) |
 | **Tipos de plataforma com consulta validada** | Nenhum (ver seção 9) |
@@ -216,6 +216,8 @@ Validou este hunt? Veja como contribuir no [CONTRIBUTING](../../CONTRIBUTING.md#
 - Os subdomínios **decodificam** para algo legível (base32, base64, hexadecimal)? Tentar a decodificação de alguns exemplos é o teste mais rápido.
 - O padrão é contínuo ou em rajadas? Coincide com horário de trabalho ou ocorre fora dele?
 - O host é um ativo crítico ou tem acesso a dados sensíveis?
+- Houve preparação de dados no host antes das consultas, como compactação de grandes volumes? (ver [TH-COL-001](../collection/th-col-001-compactacao-grandes-volumes.md))
+- O host mostra outros sinais de comunicação com infraestrutura do adversário? (ver [TH-C2-001](../command-and-control/th-c2-001-beaconing-destinos-raros.md))
 - O cliente reconhece o domínio? (consultar o ponto focal)
 
 ## 11. Falsos positivos conhecidos
@@ -273,6 +275,7 @@ A parte de baseline e de distribuição por hosts continua dependendo do hunt ma
 | Versão | Data | Autor | Alteração |
 |--------|------|-------|-----------|
 | 1.0 | 2026-11-03 | Eduardo Fernandes Mateus | Publicação como Proposto. Regras Sigma com sintaxe verificada; não validado em plataforma real. |
+| 1.1 | 2026-11-03 | Eduardo Fernandes Mateus | Perguntas de enriquecimento com referência aos hunts TH-COL-001 e TH-C2-001. |
 
 ---
 

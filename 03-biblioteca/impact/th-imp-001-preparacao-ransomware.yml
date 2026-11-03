@@ -1,0 +1,170 @@
+# TH-IMP-001 — Preparação para ransomware
+# Regras Sigma de apoio ao hunt. Ver th-imp-001-preparacao-ransomware.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006).
+# Os nomes de campos seguem a taxonomia genérica do Sigma e devem ser mapeados na conversão.
+# PRIORIDADE: estas regras devem virar alertas de tempo real o quanto antes (seção 14 do hunt).
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-IMP-001 - Exclusão ou redução de cópias de sombra
+id: 408c3e61-0b95-4ca7-90df-2343c066b05b
+status: experimental
+description: >-
+    Exclusão de cópias de sombra ou redução do espaço reservado a elas, por
+    vssadmin, WMI ou PowerShell.
+references:
+    - https://attack.mitre.org/techniques/T1490/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.impact
+    - attack.t1490
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    vssadmin_img:
+        - Image|endswith: '\vssadmin.exe'
+        - OriginalFileName: 'VSSADMIN.EXE'
+    vssadmin_args:
+        - CommandLine|contains|all:
+            - 'delete'
+            - 'shadows'
+        - CommandLine|contains|all:
+            - 'resize'
+            - 'shadowstorage'
+    wmi_shadow:
+        CommandLine|contains|all:
+            - 'shadowcopy'
+            - 'delete'
+    ps_shadow:
+        CommandLine|contains: 'Win32_Shadowcopy'
+    ps_shadow_acao:
+        CommandLine|contains:
+            - '.Delete()'
+            - 'Remove-WmiObject'
+            - 'Remove-CimInstance'
+    condition: (vssadmin_img and vssadmin_args) or wmi_shadow or (ps_shadow and ps_shadow_acao)
+falsepositives:
+    - Manutenção de armazenamento por administradores (rara)
+level: high
+---
+title: TH-IMP-001 - Exclusão de catálogo ou de backups do sistema
+id: 1092031c-6427-4189-a4e6-44c7c2702c66
+status: experimental
+description: Uso do wbadmin para excluir o catálogo de backup ou backups do sistema.
+references:
+    - https://attack.mitre.org/techniques/T1490/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.impact
+    - attack.t1490
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\wbadmin.exe'
+        - OriginalFileName: 'WBADMIN.EXE'
+    selection_args:
+        CommandLine|contains: 'delete'
+    selection_alvo:
+        CommandLine|contains:
+            - 'catalog'
+            - 'systemstatebackup'
+            - 'backup'
+    condition: all of selection_*
+falsepositives:
+    - Limpeza planejada de backups antigos pelo administrador
+level: high
+---
+title: TH-IMP-001 - Desativação da recuperação do sistema na inicialização
+id: a8041bc2-10ba-4d50-8745-e916f73a0d8e
+status: experimental
+description: >-
+    Uso do bcdedit para desativar o ambiente de recuperação ou para ignorar falhas
+    de inicialização.
+references:
+    - https://attack.mitre.org/techniques/T1490/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.impact
+    - attack.t1490
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\bcdedit.exe'
+        - OriginalFileName: 'bcdedit.exe'
+    selection_args:
+        - CommandLine|contains|all:
+            - 'recoveryenabled'
+            - 'no'
+        - CommandLine|contains|all:
+            - 'bootstatuspolicy'
+            - 'ignoreallfailures'
+    condition: all of selection_*
+falsepositives:
+    - Configuração de imagens para ambientes específicos (rara)
+level: high
+---
+title: TH-IMP-001 - Parada ou desabilitação de serviço por linha de comando
+id: 089512c2-b215-4855-b42f-9c5398a17f33
+name: th_imp_001_parada_servico
+status: experimental
+description: >-
+    Parada ou desabilitação de serviço por net, sc ou PowerShell. Regra base da
+    correlação de parada em massa; isoladamente é comum.
+references:
+    - https://attack.mitre.org/techniques/T1489/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.impact
+    - attack.t1489
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    net_stop:
+        Image|endswith:
+            - '\net.exe'
+            - '\net1.exe'
+        CommandLine|contains: ' stop '
+    sc_stop:
+        Image|endswith: '\sc.exe'
+        CommandLine|contains:
+            - ' stop '
+            - 'start= disabled'
+            - 'start=disabled'
+    ps_stop:
+        CommandLine|contains:
+            - 'Stop-Service'
+            - 'Set-Service'
+    condition: net_stop or sc_stop or ps_stop
+falsepositives:
+    - Administração e manutenção de serviços
+level: informational
+---
+title: TH-IMP-001 - Parada de serviços em massa no mesmo host
+id: cb721d6b-7ae9-43c8-aa83-a703ed8fa574
+status: experimental
+description: >-
+    Dez ou mais comandos de parada ou desabilitação de serviços no mesmo host em
+    dez minutos, padrão de preparação para criptografia (bancos de dados, backup,
+    segurança). O limiar é uma referência e deve ser calibrado pelo baseline.
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+correlation:
+    type: event_count
+    rules:
+        - th_imp_001_parada_servico
+    group-by:
+        - Computer
+    timespan: 10m
+    condition:
+        gte: 10
+falsepositives:
+    - Scripts de manutenção que param vários serviços para atualização
+level: high

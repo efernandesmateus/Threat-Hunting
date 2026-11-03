@@ -10,6 +10,27 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [1.4.0] - 2026-11-03
+
+Último bloco da biblioteca inicial, que passa a ter 12 hunts, e revisão de consistência da biblioteca.
+
+### Adicionado
+
+- `03-biblioteca/command-and-control/th-c2-001-beaconing-destinos-raros.md` (v1.0, Proposto): conexões periódicas para destinos raros, com análise de regularidade pelo coeficiente de variação dos intervalos e tratamento de beacons de intervalo longo. Sem regra Sigma (lógica estatística sobre sequências).
+- `03-biblioteca/impact/th-imp-001-preparacao-ransomware.md` (v1.0, Proposto) e regras Sigma (4 regras e 1 correlação): exclusão de cópias de sombra e de backups, desativação da recuperação na inicialização e parada de serviços em massa, com prioridade máxima de conversão em alertas de tempo real.
+- `03-biblioteca/README.md`: índice dos 12 hunts na sequência de uma intrusão, quantidade de regras Sigma por hunt e orientação de por onde começar em um cliente novo.
+- Backlog futuro: complemento do TH-IMP-001 para Linux e hipervisores.
+
+### Alterado
+
+- `TH-EXF-001` (v1.1) e `TH-INI-001` (v1.1): perguntas de enriquecimento com referências aos hunts relacionados, completando as referências cruzadas da biblioteca.
+- `04-onboarding/matriz-de-cobertura.md`: status de todos os hunts, fontes do TH-EXE-001 e do TH-STL-001 alinhadas à seção 5 de cada hunt e nota de manutenção do mapa.
+- `README.md`: status, roadmap da biblioteca inicial concluído e próximos passos opcionais.
+
+### Verificado
+
+- Condições de todas as regras Sigma da biblioteca analisadas pelo analisador Sigma (além da sintaxe), sem erros.
+
 ## [1.3.0] - 2026-11-03
 
 Terceiro bloco de hunts da biblioteca.

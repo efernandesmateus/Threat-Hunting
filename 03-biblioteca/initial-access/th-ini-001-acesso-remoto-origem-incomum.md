@@ -3,7 +3,7 @@
 | Campo | Valor |
 |-------|-------|
 | **ID** | TH-INI-001 |
-| **Versão** | 1.0 |
+| **Versão** | 1.1 |
 | **Status** | Proposto |
 | **Tática principal** | Initial Access (TA0001) |
 | **Tipos de plataforma com consulta validada** | Nenhum (ver seção 9) |
@@ -205,7 +205,7 @@ Validou este hunt? Veja como contribuir no [CONTRIBUTING](../../CONTRIBUTING.md#
 - O usuário reconhece o acesso? (confirmar pelo ponto focal ou pelo gestor, nunca pelo próprio canal possivelmente comprometido)
 - O usuário estava viajando ou em outro local?
 - A conta tem segundo fator de autenticação? Ele foi solicitado e aprovado? Houve várias solicitações seguidas antes da aprovação?
-- O que a sessão fez depois do acesso? Quais hosts e recursos foram alcançados?
+- O que a sessão fez depois do acesso? Quais hosts e recursos foram alcançados? Houve enumeração do domínio ou logons em outros hosts? (ver [TH-DIS-001](../discovery/th-dis-001-enumeracao-diretorio-em-rajada.md) e [TH-LAT-001](../lateral-movement/th-lat-001-movimentacao-lateral-contas-administrativas.md))
 - A mesma origem tentou ou conseguiu acessar outras contas?
 - A conta teve alterações recentes (senha, segundo fator, grupos)?
 
@@ -262,6 +262,7 @@ Validou este hunt? Veja como contribuir no [CONTRIBUTING](../../CONTRIBUTING.md#
 | Versão | Data | Autor | Alteração |
 |--------|------|-------|-----------|
 | 1.0 | 2026-11-03 | Eduardo Fernandes Mateus | Publicação como Proposto. Sem regra Sigma (ver seção 8.2); não validado em plataforma real. |
+| 1.1 | 2026-11-03 | Eduardo Fernandes Mateus | Perguntas de enriquecimento com referência aos hunts TH-DIS-001 e TH-LAT-001. |
 
 ---
 

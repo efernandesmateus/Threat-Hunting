@@ -44,7 +44,7 @@ A prioridade considera a quantidade de hunts viabilizados e a relevância das t�
 
 ## 4. Mapa de referência: fontes por hunt
 
-Categorias de fonte que cada hunt da biblioteca exige. Use como ponto de partida para estimar a cobertura **antes** do inventário detalhado, por exemplo, numa proposta comercial.
+Categorias de fonte que cada hunt da biblioteca exige, conforme a seção 5 de cada um. Use como ponto de partida para estimar a cobertura **antes** do inventário detalhado, por exemplo, numa proposta comercial.
 
 **Legenda:** **O** = obrigatória · **O\*** = obrigatória, atendida por qualquer uma das fontes marcadas com O\* na linha · **C** = complementar · — = não usada
 
@@ -52,21 +52,21 @@ Categorias de fonte que cada hunt da biblioteca exige. Use como ponto de partida
 |------|--------|:---:|:----------------:|:--------------:|:----------:|:------------------------:|:-------------:|
 | TH-EXF-001 — Exfiltração via DNS | Proposto | O | C | C | — | — | — |
 | TH-INI-001 — Acesso remoto externo de origem incomum | Proposto | — | — | — | — | C | O |
-| TH-EXE-001 — Interpretadores com comandos codificados | Proposto | — | — | O\* | O\* | — | — |
+| TH-EXE-001 — Interpretadores com comandos codificados | Proposto | — | C | O\* | O\* | — | — |
 | TH-PER-001 — Tarefas e serviços fora do padrão | Proposto | — | — | O\* | O\* | C | — |
-| TH-STL-001 — Utilitários legítimos executando código | Proposto | — | C | O | — | — | — |
+| TH-STL-001 — Utilitários legítimos executando código | Proposto | — | — | O | C | — | — |
 | TH-DIM-001 — Desativação de ferramentas e logs | Proposto | — | — | O\* | O\* | — | — |
 | TH-CRD-001 — Acesso à memória do processo de autenticação | Proposto | — | — | O | — | C | — |
 | TH-DIS-001 — Enumeração do diretório em rajada | Proposto | — | — | O\* | O\* | O\* | — |
 | TH-LAT-001 — Movimentação lateral com contas administrativas | Proposto | — | — | C | — | O | — |
 | TH-COL-001 — Compactação de grandes volumes de arquivos | Proposto | — | C | O | — | — | — |
-| TH-C2-001 — Beaconing para destinos raros | Planejado | C | O | C | — | — | — |
-| TH-IMP-001 — Preparação para ransomware | Planejado | — | — | O\* | O\* | — | — |
+| TH-C2-001 — Beaconing para destinos raros | Proposto | C | O | C | — | — | — |
+| TH-IMP-001 — Preparação para ransomware | Proposto | — | — | O\* | O\* | — | — |
 
 Notas:
 
-- Para hunts **Planejados**, o mapa é uma previsão. As fontes definitivas são as da seção 5 de cada hunt, quando ele for publicado; atualize o mapa nesse momento.
-- As categorias **E-mail** e **Nuvem** ainda não são usadas pelos hunts planejados, mas fazem parte do inventário porque serão necessárias para hunts futuros.
+- O mapa reflete a seção 5 de cada hunt. Quando um hunt for revisado ou um hunt novo for publicado, atualize o mapa no mesmo pull request.
+- As categorias **E-mail** e **Nuvem** ainda não são usadas pelos hunts da biblioteca inicial, mas fazem parte do inventário porque serão necessárias para hunts futuros.
 - A telemetria de **endpoint** é a fonte mais requisitada da biblioteca: aparece em 11 dos 12 hunts e é obrigatória, sozinha ou como alternativa a outra fonte, em 8. Sem ela, 3 hunts ficam inviáveis (TH-STL-001, TH-CRD-001 e TH-COL-001) e outros 5 passam a depender inteiramente das fontes alternativas (logs do sistema operacional ou do diretório).
 
 ---
