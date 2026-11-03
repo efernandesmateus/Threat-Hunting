@@ -16,6 +16,7 @@ Registro das decisões de design do projeto. Cada decisão explica o contexto, o
 | [0001](0001-othf-como-base-metodologica.md) | OTHF como base metodológica | Aceita |
 | [0002](0002-independencia-de-api-de-fornecedor.md) | Independência de API de fornecedor | Aceita |
 | [0003](0003-sem-dados-reais-no-repositorio.md) | Nenhum dado real no repositório | Aceita |
-| [0004](0004-neutralidade-de-fabricante.md) | Neutralidade de fabricante | Aceita |
+| [0004](0004-neutralidade-de-fabricante.md) | Neutralidade de fabricante | Aceita (complementada pelo 0007) |
 | [0005](0005-formato-das-consultas.md) | Formato das consultas na biblioteca | Aceita |
 | [0006](0006-validacao-pelo-adotante.md) | Validação dos hunts pelo adotante | Aceita |
+| [0007](0007-excecao-tecnica-sistemas-operacionais.md) | Exceção técnica para sistemas operacionais | Aceita |

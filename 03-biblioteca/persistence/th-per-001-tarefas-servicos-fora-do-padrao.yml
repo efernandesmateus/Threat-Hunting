@@ -1,0 +1,172 @@
+# TH-PER-001 — Tarefas agendadas e serviços fora do padrão
+# Regras Sigma de apoio ao hunt. Ver th-per-001-tarefas-servicos-fora-do-padrao.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006).
+# Os nomes de campos seguem a taxonomia genérica do Sigma e devem ser mapeados na conversão.
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-PER-001 - Tarefa agendada com ação suspeita
+id: 4e00a858-a242-4c69-a106-95d8ee011afe
+status: experimental
+description: >-
+    Tarefa agendada criada (evento 4698) cuja ação executa um interpretador de
+    script ou um binário em diretório gravável por usuários.
+references:
+    - https://attack.mitre.org/techniques/T1053/005/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.persistence
+    - attack.execution
+    - attack.t1053.005
+logsource:
+    product: windows
+    service: security
+detection:
+    selection_event:
+        EventID: 4698
+    selection_acao:
+        TaskContent|contains:
+            - '\AppData\'
+            - '\Users\Public\'
+            - '\Temp\'
+            - '\ProgramData\'
+            - '\Downloads\'
+            - 'powershell'
+            - 'pwsh'
+            - 'cmd.exe /c'
+            - 'cmd /c'
+            - 'mshta'
+            - 'wscript'
+            - 'cscript'
+            - 'rundll32'
+            - 'regsvr32'
+    condition: all of selection_*
+falsepositives:
+    - Atualizadores de software instalados por usuário (em AppData)
+    - Tarefas de manutenção criadas por ferramentas de gestão
+level: medium
+---
+title: TH-PER-001 - Serviço instalado com caminho ou comando suspeito
+id: ddb55187-4acc-4b90-bbbc-03c79a684ee2
+status: experimental
+description: >-
+    Serviço instalado (evento 7045) cujo executável está em diretório gravável por
+    usuários ou cujo comando é um interpretador de script.
+references:
+    - https://attack.mitre.org/techniques/T1543/003/
+    - https://attack.mitre.org/techniques/T1569/002/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.persistence
+    - attack.t1543.003
+    - attack.execution
+    - attack.t1569.002
+logsource:
+    product: windows
+    service: system
+detection:
+    selection_event:
+        Provider_Name: 'Service Control Manager'
+        EventID: 7045
+    selection_caminho:
+        ImagePath|contains:
+            - '\AppData\'
+            - '\Users\Public\'
+            - '\Temp\'
+            - '\ProgramData\'
+            - '\Downloads\'
+            - 'powershell'
+            - 'pwsh'
+            - 'cmd.exe /c'
+            - 'cmd /c'
+            - '%COMSPEC%'
+            - 'mshta'
+            - 'rundll32'
+    condition: all of selection_*
+falsepositives:
+    - Instaladores legítimos que registram serviços temporários a partir de diretórios temporários
+level: high
+---
+title: TH-PER-001 - Criação de tarefa agendada por linha de comando com ação suspeita ou em host remoto
+id: 75d3aeda-1a8e-47a4-b838-3265859330b2
+status: experimental
+description: >-
+    Uso do schtasks para criar tarefa cuja ação executa interpretador ou binário em
+    diretório gravável por usuários, ou para criar tarefa em outro host.
+references:
+    - https://attack.mitre.org/techniques/T1053/005/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.persistence
+    - attack.execution
+    - attack.t1053.005
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\schtasks.exe'
+        - OriginalFileName: 'schtasks.exe'
+    selection_create:
+        CommandLine|contains: '/create'
+    selection_suspeito:
+        - CommandLine|contains:
+            - '\AppData\'
+            - '\Users\Public\'
+            - '\Temp\'
+            - '\ProgramData\'
+            - 'powershell'
+            - 'cmd /c'
+            - 'mshta'
+            - 'rundll32'
+        - CommandLine|re: '(?i)\s/s\s+\S+'
+    condition: all of selection_*
+falsepositives:
+    - Scripts administrativos que criam tarefas em massa
+level: medium
+---
+title: TH-PER-001 - Criação ou alteração de unidades systemd e de arquivos cron
+id: 15b4b009-1d05-4921-97c2-684390bd9213
+status: experimental
+description: >-
+    Arquivo criado ou alterado em diretórios de unidades systemd ou de agendamento
+    cron, fora dos gerenciadores de pacotes. Regra de baixo nível, para apoio ao
+    stacking do hunt.
+references:
+    - https://attack.mitre.org/techniques/T1543/002/
+    - https://attack.mitre.org/techniques/T1053/003/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.persistence
+    - attack.t1543.002
+    - attack.t1053.003
+logsource:
+    category: file_event
+    product: linux
+detection:
+    selection_systemd:
+        TargetFilename|startswith:
+            - '/etc/systemd/system/'
+            - '/lib/systemd/system/'
+            - '/usr/lib/systemd/system/'
+    selection_systemd_usuario:
+        TargetFilename|contains: '/.config/systemd/user/'
+    selection_cron:
+        TargetFilename|startswith:
+            - '/etc/cron'
+            - '/var/spool/cron/'
+    filter_pacotes:
+        Image|endswith:
+            - '/dpkg'
+            - '/rpm'
+            - '/apt'
+            - '/apt-get'
+            - '/yum'
+            - '/dnf'
+            - '/zypper'
+    condition: 1 of selection_* and not filter_pacotes
+falsepositives:
+    - Administração legítima e ferramentas de gestão de configuração
+level: low

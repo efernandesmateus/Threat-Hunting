@@ -77,7 +77,7 @@ Exemplo de avaliação de ameaças para uma empresa de varejo, usando MITRE ATT&
 
 ### 10 — Hunt Data Sources
 
-Aprofundamento em artefatos de endpoint: Shimcache, Amcache, Autoruns, Prefetch, processos em execução, conexões de rede ativas, metadados de executáveis, serviços e logs de eventos. Para cada um: campos importantes, valor para hunting, técnicas e triagem.
+Aprofundamento em artefatos de endpoint Windows: Shimcache, Amcache, Autoruns, Prefetch, processos em execução, conexões de rede ativas, metadados de executáveis, serviços e logs de eventos. Para cada um: campos importantes, valor para hunting, técnicas e triagem.
 
 ### 11 — Hunting Techniques
 
@@ -104,7 +104,7 @@ Técnicas de análise: stacking (contagem de frequência para achar o raro), enr
 ## Limitações conhecidas
 
 - Sem atualizações desde maio de 2023.
-- Conteúdo técnico centrado em artefatos de endpoint; pouco sobre nuvem, identidade e rede.
-- Cita fabricantes e produtos em vários pontos; neste projeto, essas referências foram generalizadas (ver ADR 0004).
+- Conteúdo técnico centrado em artefatos de endpoint Windows; pouco sobre nuvem, identidade e rede.
+- Cita fabricantes e produtos em vários pontos; neste projeto, essas referências foram generalizadas (ver ADR 0004 e ADR 0007).
 - Escrito para um time interno, não para MSSP.
 - Algumas seções estão incompletas no original (ex.: exemplo de proposta no apêndice).

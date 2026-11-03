@@ -10,6 +10,25 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [1.1.0] - 2026-11-03
+
+Primeiro bloco de hunts da biblioteca.
+
+### Adicionado
+
+- `03-biblioteca/initial-access/th-ini-001-acesso-remoto-origem-incomum.md` (v1.0, Proposto): autenticações bem-sucedidas no acesso remoto externo com atributos raros para a conta, com pontuação por indicadores. Sem regra Sigma (lógica baseada em histórico e enriquecimento).
+- `03-biblioteca/execution/th-exe-001-interpretadores-comandos-ofuscados.md` (v1.0, Proposto) e regras Sigma (5 regras, Windows e Linux): interpretadores com comandos codificados, ofuscados ou de download e execução.
+- `03-biblioteca/persistence/th-per-001-tarefas-servicos-fora-do-padrao.md` (v1.0, Proposto) e regras Sigma (4 regras, Windows e Linux): tarefas agendadas e serviços raros ou com ações suspeitas.
+- ADR 0007: exceção técnica que permite citar sistemas operacionais e seus componentes nativos, mantendo a proibição para produtos de segurança.
+
+### Alterado
+
+- ADR 0004: status indica que foi complementado pelo ADR 0007.
+- `CONTRIBUTING.md` e `README.md`: regra de neutralidade com a exceção técnica.
+- `referencias/OTHF/README.md`: menções a artefatos Windows restauradas, conforme o ADR 0007.
+- `03-biblioteca/README.md`: índice com os novos hunts e lista de planejados atualizada.
+- `04-onboarding/matriz-de-cobertura.md`: status dos novos hunts e fonte complementar do TH-PER-001.
+
 ## [1.0.0] - 2026-11-03
 
 Primeira versão completa da metodologia: definição do serviço, processo operacional, templates, biblioteca de referência com o primeiro hunt, onboarding de cliente e assessment de maturidade.

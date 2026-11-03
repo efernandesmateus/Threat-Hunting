@@ -30,7 +30,8 @@ Antes de cada commit, revise o diff procurando qualquer item da lista acima.
 
 - Português do Brasil.
 - Termos técnicos consagrados podem ficar em inglês: hunt, hunting, IOC, TTP, stacking, baseline, false positive.
-- Não cite fabricantes nem produtos comerciais. Descreva a capacidade pelo tipo: "o EDR", "o SIEM", "o firewall", "o serviço de diretório". Frameworks e projetos abertos de referência (MITRE ATT&CK, OTHF) podem ser citados.
+- Não cite fabricantes nem produtos de segurança e de defesa. Descreva a capacidade pelo tipo: "o EDR", "o SIEM", "o firewall", "o serviço de diretório". Frameworks e projetos abertos de referência (MITRE ATT&CK, OTHF) podem ser citados.
+- **Exceção técnica ([ADR 0007](decisoes/0007-excecao-tecnica-sistemas-operacionais.md)):** sistemas operacionais e seus componentes nativos (interpretadores, agendadores, serviços, registros de eventos, caminhos) podem ser citados quando necessários para descrever a técnica com precisão.
 - Texto objetivo, voltado a um analista que vai executar o procedimento.
 
 ## 3. Formato e nomes

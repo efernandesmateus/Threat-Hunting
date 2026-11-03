@@ -2,7 +2,7 @@
 
 Metodologia aberta para estruturar e operar um **serviço de threat hunting** em SOCs e provedores de serviços gerenciados de segurança (MSSPs): definição do serviço, processo, templates, biblioteca de hunts, onboarding de clientes e avaliação de maturidade.
 
-> **Status:** v1.0.0 — metodologia completa; biblioteca de hunts em expansão. Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
+> **Status:** v1.1.0 — metodologia completa; biblioteca de hunts em expansão (4 de 12 hunts publicados). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
 
 ## O que é threat hunting neste projeto
 
@@ -55,7 +55,7 @@ Resumo de cada módulo do OTHF e como ele foi aproveitado: [`referencias/OTHF/`]
 
 ## Neutralidade de fabricante
 
-A metodologia é **agnóstica de ferramenta** e **não cita fabricantes nem produtos**. Ela descreve o que buscar e por quê, em termos de comportamento, fontes de dados e técnicas MITRE ATT&CK, para que possa ser aplicada em qualquer plataforma de SIEM, EDR ou XDR (ver [ADR 0004](decisoes/0004-neutralidade-de-fabricante.md)).
+A metodologia é **agnóstica de ferramenta** e **não cita fabricantes nem produtos de segurança**. Sistemas operacionais e seus componentes nativos são citados apenas quando necessários para a precisão técnica dos hunts ([ADR 0007](decisoes/0007-excecao-tecnica-sistemas-operacionais.md)). Ela descreve o que buscar e por quê, em termos de comportamento, fontes de dados e técnicas MITRE ATT&CK, para que possa ser aplicada em qualquer plataforma de SIEM, EDR ou XDR (ver [ADR 0004](decisoes/0004-neutralidade-de-fabricante.md)).
 
 O projeto também **não depende de API de fornecedor** para funcionar (ver [ADR 0002](decisoes/0002-independencia-de-api-de-fornecedor.md)).
 
@@ -82,7 +82,8 @@ Este repositório guarda **metodologia**, nunca dados operacionais. Não inclua 
 
 **Biblioteca (a partir da v1.1.0)**
 
-- [ ] 11 hunts planejados, em blocos de três por versão (ver [`03-biblioteca/`](03-biblioteca/README.md#hunts-planejados))
+- [x] Bloco 1 (v1.1.0): TH-INI-001, TH-EXE-001 e TH-PER-001
+- [ ] 8 hunts planejados, em blocos de três por versão (ver [`03-biblioteca/`](03-biblioteca/README.md#hunts-planejados))
 
 ## Como contribuir
 

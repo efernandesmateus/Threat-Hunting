@@ -1,6 +1,6 @@
 # 0004 — Neutralidade de fabricante
 
-- **Status:** Aceita
+- **Status:** Aceita (complementada pelo [ADR 0007](0007-excecao-tecnica-sistemas-operacionais.md))
 - **Data:** 2026-11-03
 
 ## Contexto

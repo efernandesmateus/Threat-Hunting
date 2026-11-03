@@ -1,0 +1,165 @@
+# TH-EXE-001 — Interpretadores com comandos codificados ou ofuscados
+# Regras Sigma de apoio ao hunt. Ver th-exe-001-interpretadores-comandos-ofuscados.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006).
+# Os nomes de campos seguem a taxonomia genérica do Sigma e devem ser mapeados na conversão.
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-EXE-001 - PowerShell com comando codificado
+id: 00893d74-1d02-4031-a1c6-03e4eda494b3
+status: experimental
+description: >-
+    Execução do PowerShell com parâmetro de comando codificado seguido de um bloco
+    longo em base64. Usado legitimamente por algumas ferramentas de gestão; ver a
+    triagem do hunt TH-EXE-001.
+references:
+    - https://attack.mitre.org/techniques/T1059/001/
+    - https://attack.mitre.org/techniques/T1027/010/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.execution
+    - attack.t1059.001
+    - attack.stealth
+    - attack.t1027.010
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        - OriginalFileName:
+            - 'PowerShell.EXE'
+            - 'pwsh.dll'
+    selection_enc:
+        CommandLine|re: '(?i)\s[-/–—]e(c|n[a-z]*)?\s+[A-Za-z0-9+/=]{40,}'
+    condition: all of selection_*
+falsepositives:
+    - Ferramentas de gestão e de implantação de software que usam comandos codificados
+level: medium
+---
+title: TH-EXE-001 - PowerShell com download e execução em memória
+id: 50315a53-54eb-4b1c-b4d4-41a5fa9a492d
+status: experimental
+description: >-
+    Linha de comando do PowerShell que combina download de conteúdo remoto com
+    execução direta (padrão de download e execução em memória).
+references:
+    - https://attack.mitre.org/techniques/T1059/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        - OriginalFileName:
+            - 'PowerShell.EXE'
+            - 'pwsh.dll'
+    selection_exec:
+        CommandLine|contains:
+            - 'IEX'
+            - 'Invoke-Expression'
+    selection_download:
+        CommandLine|contains:
+            - 'DownloadString'
+            - 'DownloadData'
+            - 'Net.WebClient'
+            - 'Invoke-WebRequest'
+            - 'Invoke-RestMethod'
+    condition: all of selection_*
+falsepositives:
+    - Scripts de instalação legítimos que baixam e executam conteúdo (verificar origem e assinatura)
+level: high
+---
+title: TH-EXE-001 - Ofuscação na linha de comando do cmd
+id: a50ff9b8-95fc-4e3e-ae21-6af5225b925d
+status: experimental
+description: >-
+    Linha de comando do interpretador cmd com escape excessivo por circunflexo ou
+    com montagem de comandos a partir de substrings de variáveis de ambiente.
+references:
+    - https://attack.mitre.org/techniques/T1059/003/
+    - https://attack.mitre.org/techniques/T1027/010/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.execution
+    - attack.t1059.003
+    - attack.stealth
+    - attack.t1027.010
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\cmd.exe'
+        - OriginalFileName: 'Cmd.Exe'
+    selection_obf:
+        - CommandLine|re: '(\^[^\s\^]){6,}'
+        - CommandLine|re: '%[A-Za-z0-9_]+:~-?\d+(,-?\d+)?%'
+    condition: all of selection_*
+falsepositives:
+    - Scripts legados com escape de caracteres especiais
+level: medium
+---
+title: TH-EXE-001 - Conteúdo decodificado de base64 executado em shell Unix
+id: fd20feed-c99e-476f-a5a7-20d29353e4f7
+status: experimental
+description: >-
+    Linha de comando que decodifica conteúdo base64 e o envia diretamente para um
+    interpretador de shell.
+references:
+    - https://attack.mitre.org/techniques/T1059/004/
+    - https://attack.mitre.org/techniques/T1140/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.execution
+    - attack.t1059.004
+    - attack.stealth
+    - attack.t1140
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection_decode:
+        CommandLine|contains:
+            - 'base64 -d'
+            - 'base64 --decode'
+    selection_pipe:
+        CommandLine|re: '\|\s*(ba|z|da|k)?sh\b'
+    condition: all of selection_*
+falsepositives:
+    - Scripts de automação e de provisionamento que transportam conteúdo em base64
+level: medium
+---
+title: TH-EXE-001 - Download canalizado direto para shell Unix
+id: 7d864475-c6fb-4cb7-8473-f8878ef4f6f6
+status: experimental
+description: >-
+    Conteúdo baixado por curl ou wget e entregue diretamente a um interpretador de
+    shell, sem gravação em disco.
+references:
+    - https://attack.mitre.org/techniques/T1059/004/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.execution
+    - attack.t1059.004
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection:
+        CommandLine|re: '(curl|wget)\b[^|]*\|\s*(sudo\s+)?(ba|z|da|k)?sh\b'
+    condition: selection
+falsepositives:
+    - Instaladores oficiais distribuídos no formato "baixar e executar" (verificar a origem)
+level: medium

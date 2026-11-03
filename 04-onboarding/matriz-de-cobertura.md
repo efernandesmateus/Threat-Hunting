@@ -51,9 +51,9 @@ Categorias de fonte que cada hunt da biblioteca exige. Use como ponto de partida
 | Hunt | Status | DNS | Proxy e firewall | Endpoint (EDR) | Logs do SO | Autenticação e diretório | Acesso remoto |
 |------|--------|:---:|:----------------:|:--------------:|:----------:|:------------------------:|:-------------:|
 | TH-EXF-001 — Exfiltração via DNS | Proposto | O | C | C | — | — | — |
-| TH-INI-001 — Acesso remoto externo de origem incomum | Planejado | — | — | — | — | C | O |
-| TH-EXE-001 — Interpretadores com comandos codificados | Planejado | — | — | O\* | O\* | — | — |
-| TH-PER-001 — Tarefas e serviços fora do padrão | Planejado | — | — | O\* | O\* | — | — |
+| TH-INI-001 — Acesso remoto externo de origem incomum | Proposto | — | — | — | — | C | O |
+| TH-EXE-001 — Interpretadores com comandos codificados | Proposto | — | — | O\* | O\* | — | — |
+| TH-PER-001 — Tarefas e serviços fora do padrão | Proposto | — | — | O\* | O\* | C | — |
 | TH-STL-001 — Utilitários legítimos executando código | Planejado | — | C | O | — | — | — |
 | TH-DIM-001 — Desativação de ferramentas e logs | Planejado | — | — | O\* | O\* | — | — |
 | TH-CRD-001 — Acesso à memória do processo de autenticação | Planejado | — | — | O | — | — | — |
