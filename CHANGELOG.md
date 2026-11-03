@@ -10,6 +10,23 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [1.0.0] - 2026-11-03
+
+Primeira versão completa da metodologia: definição do serviço, processo operacional, templates, biblioteca de referência com o primeiro hunt, onboarding de cliente e assessment de maturidade.
+
+### Adicionado
+
+- `README.md`: seção "Por onde começar", com o ponto de entrada para cada objetivo.
+
+### Alterado
+
+- Revisão geral de consistência entre os documentos, alinhando o uso dos dois níveis de status (biblioteca e operacional, ADR 0006):
+  - `01-processo/README.md`: tabela dos dois processos e diagrama do ciclo completo, que passa a incluir a validação no ambiente do time;
+  - `01-processo/desenvolvimento-de-hunts.md`: tabela de etapas e etapa 7 (publicação como Proposto na biblioteca; Ativo apenas no ambiente do time);
+  - `01-processo/automacao-e-melhoria.md`, `01-processo/backlog-e-priorizacao.md` e `01-processo/identificacao-de-hunts.md`: referências ao status operacional;
+  - `00-servico/objetivos-e-capacidade.md`: objetivos das metas 2 e 4.
+- `README.md`: status da versão e descrição das pastas de onboarding e maturidade.
+
 ## [0.7.0] - 2026-11-03
 
 ### Adicionado

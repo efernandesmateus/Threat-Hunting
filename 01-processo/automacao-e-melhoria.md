@@ -45,7 +45,7 @@ flowchart LR
 
 - Quem implementa a regra depende do nível contratado e do acesso às plataformas (ver [RACI](../00-servico/papeis-e-responsabilidades.md#3-matriz-raci--soc--cliente)).
 - A regra criada é registrada na seção 14 do hunt.
-- O hunt passa ao status **Automatizado**, mas continua na biblioteca: ele documenta a lógica da regra e pode ser executado manualmente se a regra for desativada ou se o cliente não tiver a plataforma que a suporta.
+- No ambiente do time, o hunt passa ao status operacional **Automatizado**. Na biblioteca, ele continua publicado: ele documenta a lógica da regra e pode ser executado manualmente se a regra for desativada ou se o cliente não tiver a plataforma que a suporta.
 - Regras derivadas de hunts devem ser revisadas quando o hunt de origem for revisado.
 
 ## 2. Lições aprendidas

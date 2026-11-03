@@ -27,7 +27,7 @@ Os objetivos abaixo são **exemplos de referência**. Cada time deve definir os 
 
 | Componente | Referência |
 |------------|------------|
-| **Objetivos** | Avaliar o potencial de automação de 100% dos hunts ativos. Converter em detecção os hunts aprovados para automação. |
+| **Objetivos** | Avaliar o potencial de automação de 100% dos hunts em uso. Converter em detecção os hunts aprovados para automação. |
 | **Estratégia** | Abordagem "hunt once": um padrão encontrado manualmente não deve depender de nova execução manual para ser detectado. |
 | **Táticas** | Preencher a seção de potencial de automação de cada hunt; registrar as regras criadas; acompanhar o ruído das novas detecções. |
 
@@ -43,7 +43,7 @@ Os objetivos abaixo são **exemplos de referência**. Cada time deve definir os 
 
 | Componente | Referência |
 |------------|------------|
-| **Objetivos** | Adicionar novos hunts ativos a cada trimestre. Revisar cada hunt ativo pelo menos uma vez por ano. |
+| **Objetivos** | Adicionar novos hunts à biblioteca a cada trimestre. Revisar cada hunt em uso pelo menos uma vez por ano. |
 | **Estratégia** | Priorizar técnicas de alto impacto e alta frequência, cobrindo as táticas do MITRE ATT&CK de forma progressiva. |
 | **Táticas** | Manter um backlog de hunts a desenvolver; aplicar o ciclo de vida e a revisão por pares do [template](../02-templates/README.md). |
 

@@ -9,7 +9,7 @@ O time sempre terá mais ideias de hunts do que tempo para executá-las. Este do
 | **Da biblioteca** | Hunts a **desenvolver** ou revisar | Líder de Hunting | Pode ficar no próprio projeto (ex.: issues do repositório), pois não contém dados de clientes |
 | **Por cliente** | Hunts Ativos a **executar** naquele cliente | Hunter Sênior responsável pelo cliente | Nos sistemas de atendimento de quem executa o serviço, **nunca** neste repositório |
 
-Os backlogs se alimentam: uma técnica prioritária para um cliente sem hunt na biblioteca gera um item no backlog da biblioteca; um hunt que fica Ativo pode entrar no backlog de todos os clientes que têm as fontes de dados necessárias.
+Os backlogs se alimentam: uma técnica prioritária para um cliente sem hunt na biblioteca gera um item no backlog da biblioteca; um hunt que fica Ativo no ambiente do time pode entrar no backlog de todos os clientes que têm as fontes de dados necessárias.
 
 ## 2. Critério eliminatório: viabilidade dos dados
 

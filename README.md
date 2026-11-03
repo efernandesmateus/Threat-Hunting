@@ -2,7 +2,7 @@
 
 Metodologia aberta para estruturar e operar um **serviço de threat hunting** em SOCs e provedores de serviços gerenciados de segurança (MSSPs): definição do serviço, processo, templates, biblioteca de hunts, onboarding de clientes e avaliação de maturidade.
 
-> **Status:** em construção (v0.7.0). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
+> **Status:** v1.0.0 — metodologia completa; biblioteca de hunts em expansão. Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
 
 ## O que é threat hunting neste projeto
 
@@ -22,6 +22,18 @@ Ele complementa o monitoramento contínuo, sem substituí-lo:
 - **SOCs internos** que querem sair do hunting ad hoc para um processo estruturado.
 - **Analistas** que querem uma base prática para formular, executar e documentar hunts.
 
+## Por onde começar
+
+| Se você quer... | Comece por |
+|-----------------|------------|
+| Entender o serviço e o que ele entrega | [`00-servico/`](00-servico/README.md): definição, ofertas e escopo |
+| Saber como o trabalho é feito | [`01-processo/`](01-processo/README.md): o ciclo completo, do hunt à melhoria |
+| Receber um cliente novo | [`04-onboarding/`](04-onboarding/README.md): checklist, inventário e matriz de cobertura |
+| Executar hunts | [`03-biblioteca/`](03-biblioteca/README.md) — valide cada hunt no seu ambiente antes do uso |
+| Reportar resultados | [`02-templates/`](02-templates/README.md): registro de execução, relatório e métricas |
+| Avaliar a maturidade de um cliente | [`05-maturidade/`](05-maturidade/README.md): modelo, questionário e relatório |
+| Entender as decisões do projeto | [`decisoes/`](decisoes/README.md): os ADRs |
+
 ## Base metodológica
 
 O projeto parte do **Open Threat Hunting Framework (OTHF)**, da TactiKoolSec, licenciado sob MIT. O OTHF foi escrito para um time interno de uma única organização; aqui ele é **adaptado para o modelo de serviço**, com vários clientes, escopo contratado e relatórios ao cliente.
@@ -36,8 +48,8 @@ Resumo de cada módulo do OTHF e como ele foi aproveitado: [`referencias/OTHF/`]
 | [`01-processo/`](01-processo/) | Processo operacional de hunting, cadência, priorização, melhoria contínua | 6 Operational |
 | [`02-templates/`](02-templates/) | Templates de hunt, de registro de execução e de relatório ao cliente; catálogo de métricas | 6 Operational, 7 Measurement, 8 Communication |
 | [`03-biblioteca/`](03-biblioteca/) | Hunts prontos e reutilizáveis, organizados por tática MITRE ATT&CK | 10 Data Sources, 11 Techniques |
-| [`04-onboarding/`](04-onboarding/) | Checklist de entrada do cliente e inventário de fontes de dados | 4 Preparation |
-| [`05-maturidade/`](05-maturidade/) | Assessment de maturidade de threat hunting do cliente | 6 Operational (Maturity) |
+| [`04-onboarding/`](04-onboarding/) | Checklist de entrada do cliente, ficha do cliente, inventário de fontes de dados e matriz de cobertura | 4 Preparation |
+| [`05-maturidade/`](05-maturidade/) | Modelo, questionário e relatório do assessment de maturidade de threat hunting | 6 Operational (Maturity) |
 | [`decisoes/`](decisoes/) | Registro das decisões de design do projeto (ADRs) | — |
 | [`referencias/`](referencias/) | Material de referência externo e licenças | — |
 

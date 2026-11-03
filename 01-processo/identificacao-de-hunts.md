@@ -52,7 +52,7 @@ flowchart LR
 4. **Técnicas.** Levantar as técnicas ATT&CK associadas aos grupos. O [ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/) permite sobrepor os grupos em camadas e destacar as técnicas que se repetem entre eles.
 5. **Probabilidade.** Considerando os controles do cliente, avaliar a chance de cada técnica funcionar. Técnicas sem controle preventivo e sem detecção são as mais prováveis de passar despercebidas.
 6. **Técnicas prioritárias.** As técnicas comuns a vários grupos relevantes, de alto impacto e sem detecção, são as primeiras candidatas a hunt.
-7. **Mapeamento para a biblioteca.** Para cada técnica prioritária: existe hunt Ativo? Se sim, entra no backlog do cliente. Se não, entra no backlog da biblioteca.
+7. **Mapeamento para a biblioteca.** Para cada técnica prioritária: existe hunt na biblioteca? Se existe e está Ativo no ambiente do time, entra no backlog do cliente. Se existe, mas ainda não foi validado pelo time, entra na fila de validação. Se não existe, entra no backlog da biblioteca.
 
 ### Precisão da avaliação
 

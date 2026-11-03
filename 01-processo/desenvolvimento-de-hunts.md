@@ -24,11 +24,11 @@ flowchart TD
     K --> L[Hunt Ativo]
 ```
 
-| Etapa | Status do hunt | Seções do template |
-|-------|----------------|--------------------|
-| 1 a 3 | Rascunho | 1, 2, 3, 4, 5 |
-| 4 a 6 | Em validação | 6, 7, 8, 9 |
-| 7 | Em validação → Ativo | 10 a 16 e cabeçalho |
+| Etapa | Status | Seções do template |
+|-------|--------|--------------------|
+| 1 a 3 | Rascunho (biblioteca) | 1, 2, 3, 4, 5 |
+| 4 a 6 | Em validação (ambiente do time) | 6, 7, 8, 9 |
+| 7 | Proposto (biblioteca) · Ativo (ambiente do time, após as etapas 4 a 6) | 10 a 16 e cabeçalho |
 
 ## 2. Etapas
 
@@ -120,7 +120,7 @@ A validação histórica pode ser feita em dados de clientes, desde que autoriza
    - se as consultas implementam a estratégia descrita;
    - se a triagem permite a um Hunter classificar os resultados sozinho;
    - se não há dados reais de clientes.
-5. Aprovação do Líder de Hunting e mudança do status para **Ativo**, versão **1.0**.
+5. Aprovação do Líder de Hunting. Na biblioteca, o hunt é publicado como **Proposto**, versão **1.0**. No ambiente do time, depois das etapas 4 e 6, ele passa ao status operacional **Ativo**.
 
 ## 3. Revisão de hunts existentes
 
