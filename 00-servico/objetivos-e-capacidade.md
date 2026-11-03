@@ -47,7 +47,7 @@ Os objetivos abaixo são **exemplos de referência**. Cada time deve definir os 
 | **Estratégia** | Priorizar técnicas de alto impacto e alta frequência, cobrindo as táticas do MITRE ATT&CK de forma progressiva. |
 | **Táticas** | Manter um backlog de hunts a desenvolver; aplicar o ciclo de vida e a revisão por pares do [template](../02-templates/README.md). |
 
-As métricas detalhadas para acompanhar esses objetivos fazem parte do template de relatório e métricas, em [`02-templates/`](../02-templates/).
+As métricas para acompanhar esses objetivos estão no [catálogo de métricas](../02-templates/metricas.md).
 
 ## 3. Modelo de dimensionamento
 

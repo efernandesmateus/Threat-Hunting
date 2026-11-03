@@ -2,7 +2,7 @@
 
 Metodologia aberta para estruturar e operar um **serviço de threat hunting** em SOCs e provedores de serviços gerenciados de segurança (MSSPs): definição do serviço, processo, templates, biblioteca de hunts, onboarding de clientes e avaliação de maturidade.
 
-> **Status:** em construção (v0.4.0). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
+> **Status:** em construção (v0.5.0). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
 
 ## O que é threat hunting neste projeto
 
@@ -34,7 +34,7 @@ Resumo de cada módulo do OTHF e como ele foi aproveitado: [`referencias/OTHF/`]
 |-------|----------|----------------|
 | [`00-servico/`](00-servico/) | Definição do serviço, missão, ofertas, papéis, divisão SOC x cliente | 2 Foundational, 3 Structure |
 | [`01-processo/`](01-processo/) | Processo operacional de hunting, cadência, priorização, melhoria contínua | 6 Operational |
-| [`02-templates/`](02-templates/) | Template de hunt, template de relatório ao cliente | 6 Operational, 7 Measurement, 8 Communication |
+| [`02-templates/`](02-templates/) | Templates de hunt, de registro de execução e de relatório ao cliente; catálogo de métricas | 6 Operational, 7 Measurement, 8 Communication |
 | [`03-biblioteca/`](03-biblioteca/) | Hunts prontos e reutilizáveis, organizados por tática MITRE ATT&CK | 10 Data Sources, 11 Techniques |
 | [`04-onboarding/`](04-onboarding/) | Checklist de entrada do cliente e inventário de fontes de dados | 4 Preparation |
 | [`05-maturidade/`](05-maturidade/) | Assessment de maturidade de threat hunting do cliente | 6 Operational (Maturity) |
@@ -64,7 +64,7 @@ Este repositório guarda **metodologia**, nunca dados operacionais. Não inclua 
 - [x] Definição do serviço
 - [x] Processo operacional
 - [x] Primeiro hunt da biblioteca (exfiltração via DNS)
-- [ ] Template de relatório e métricas
+- [x] Template de relatório e métricas
 - [ ] Onboarding de cliente
 - [ ] Assessment de maturidade
 

@@ -90,11 +90,11 @@ Toda execução gera um **registro de execução**, que comprova o trabalho e al
 | **Escalonamentos** | Referência aos chamados ou incidentes abertos |
 | **Lições aprendidas** | Problemas encontrados e melhorias sugeridas ao hunt |
 
-O template completo do registro de execução faz parte da entrega de relatório e métricas, em [`02-templates/`](../02-templates/).
+O modelo completo está em [`02-templates/template-registro-execucao.md`](../02-templates/template-registro-execucao.md).
 
 ### Fase 6 — Relatório
 
-Ao fim do ciclo, o Hunter Sênior consolida os registros de execução no relatório periódico do cliente. O conteúdo e o formato do relatório são definidos no template de relatório (a ser criado).
+Ao fim do ciclo, o Hunter Sênior consolida os registros de execução no relatório periódico do cliente, usando o [template de relatório](../02-templates/template-relatorio-cliente.md). O Líder de Hunting revisa antes do envio. As métricas reportadas seguem o [catálogo de métricas](../02-templates/metricas.md).
 
 ## 3. Resultado de um hunt
 

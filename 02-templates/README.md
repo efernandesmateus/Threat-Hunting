@@ -2,11 +2,14 @@
 
 Modelos padronizados usados pelo serviço.
 
+Os templates de registro de execução e de relatório são **modelos**: as versões preenchidas contêm dados de clientes e ficam fora deste repositório ([ADR 0003](../decisoes/0003-sem-dados-reais-no-repositorio.md)).
+
 | Template | Uso | Status |
 |----------|-----|--------|
 | [template-hunt.md](template-hunt.md) | Estrutura obrigatória de todo hunt da biblioteca | v1.1 |
-| Template de relatório ao cliente | Resultados, achados, lacunas e recomendações | A fazer |
-| Registro de execução | O que foi feito em cada execução de hunt em um cliente (preenchido fora deste repositório) | A fazer |
+| [template-registro-execucao.md](template-registro-execucao.md) | O que foi feito em cada execução de hunt em um cliente (preenchido fora deste repositório) | v1.0 |
+| [template-relatorio-cliente.md](template-relatorio-cliente.md) | Relatório periódico ao cliente, em duas camadas: executiva e técnica | v1.0 |
+| [metricas.md](metricas.md) | Catálogo de métricas do serviço, com fórmula, frequência e público | v1.0 |
 
 ## Template de hunt
 

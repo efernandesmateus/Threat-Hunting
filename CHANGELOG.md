@@ -10,6 +10,19 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [0.5.0] - 2026-11-03
+
+### Adicionado
+
+- `02-templates/template-registro-execucao.md`: modelo do registro de cada execução de hunt em um cliente.
+- `02-templates/template-relatorio-cliente.md`: modelo do relatório periódico ao cliente, com parte executiva de uma página e parte técnica, incluindo evolução entre ciclos e técnicas caçadas.
+- `02-templates/metricas.md`: catálogo de métricas de operação, valor, redução da superfície de ataque e biblioteca, com fórmula, frequência, público e regras de uso.
+
+### Alterado
+
+- `02-templates/README.md`: índice dos novos templates.
+- `01-processo/execucao-de-hunts.md` e `00-servico/objetivos-e-capacidade.md`: referências aos novos templates.
+
 ## [0.4.0] - 2026-11-03
 
 ### Adicionado
