@@ -10,6 +10,20 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [0.2.0] - 2026-11-03
+
+### Adicionado
+
+- `00-servico/definicao-e-missao.md`: definição de threat hunting (o que é e o que não é), missão, princípios e proposta de valor.
+- `00-servico/ofertas.md`: níveis Essencial, Avançado e Estratégico, comparativo e serviços avulsos (assessment de maturidade e hunt pontual).
+- `00-servico/escopo.md`: itens incluídos, premissas, exclusões, modos de resposta (somente notificação ou contenção pelo SOC), limitações e prazos de comunicação de referência.
+- `00-servico/papeis-e-responsabilidades.md`: papéis no SOC (Líder de Hunting, Hunter Sênior, Hunter) e no cliente, matriz de competências e matriz RACI.
+- `00-servico/objetivos-e-capacidade.md`: objetivos no modelo GOST e modelo de dimensionamento do time.
+
+### Alterado
+
+- `00-servico/README.md`: índice dos documentos e ordem de leitura.
+
 ## [0.1.0] - 2026-11-02
 
 Primeira versão pública.
