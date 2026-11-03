@@ -10,6 +10,22 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [1.3.0] - 2026-11-03
+
+Terceiro bloco de hunts da biblioteca.
+
+### Adicionado
+
+- `03-biblioteca/discovery/th-dis-001-enumeracao-diretorio-em-rajada.md` (v1.0, Proposto) e regras Sigma (4 regras e 1 correlação de rajada): enumeração de contas, grupos privilegiados, confianças e controladores do domínio, incluindo AdFind (S0552) e BloodHound (S0521).
+- `03-biblioteca/lateral-movement/th-lat-001-movimentacao-lateral-contas-administrativas.md` (v1.0, Proposto) e regras Sigma (4 regras e 1 correlação de espalhamento): pares conta → host nunca vistos, espalhamento, logons entre estações, pass the hash e execução remota.
+- `03-biblioteca/collection/th-col-001-compactacao-grandes-volumes.md` (v1.0, Proposto) e regras Sigma (5 regras, Windows e Linux): compactação com senha, divisão em volumes e diretórios de preparação, detectadas pelo comportamento, sem depender do nome do compactador.
+
+### Alterado
+
+- `03-biblioteca/README.md`: índice com os novos hunts e lista de planejados atualizada.
+- `04-onboarding/matriz-de-cobertura.md`: status dos novos hunts, fontes alternativas do TH-DIS-001 e nota sobre a telemetria de endpoint.
+- `README.md`: status e roadmap.
+
 ## [1.2.0] - 2026-11-03
 
 Segundo bloco de hunts da biblioteca.

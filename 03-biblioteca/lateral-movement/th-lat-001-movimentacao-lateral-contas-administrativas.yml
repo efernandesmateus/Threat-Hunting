@@ -1,0 +1,167 @@
+# TH-LAT-001 — Movimentação lateral com contas administrativas entre hosts
+# Regras Sigma de apoio ao hunt. Ver th-lat-001-movimentacao-lateral-contas-administrativas.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006).
+# Os nomes de campos seguem a taxonomia genérica do Sigma e devem ser mapeados na conversão.
+# O indicador central do hunt (par conta -> host nunca visto) depende de histórico e fica
+# na pseudoconsulta.
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-LAT-001 - Logon de rede ou remoto interativo de conta de usuário
+id: 8883c94b-cc3a-456e-8d0e-1245a1ac3483
+name: th_lat_001_logon_rede
+status: experimental
+description: >-
+    Logon bem-sucedido de rede (tipo 3) ou remoto interativo (tipo 10) de conta de
+    usuário. Regra base da correlação de espalhamento; isoladamente é ruído.
+references:
+    - https://attack.mitre.org/techniques/T1021/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.lateral-movement
+    - attack.t1021
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4624
+        LogonType:
+            - 3
+            - 10
+    filter_maquina:
+        TargetUserName|endswith: '$'
+    filter_anonimo:
+        TargetUserName: 'ANONYMOUS LOGON'
+    condition: selection and not 1 of filter_*
+falsepositives:
+    - Todo acesso legítimo a compartilhamentos e serviços remotos
+level: informational
+---
+title: TH-LAT-001 - Mesma conta autenticando em muitos hosts em pouco tempo
+id: 72caa495-f313-41fe-821a-889820c21cb2
+status: experimental
+description: >-
+    Uma conta de usuário com logon de rede ou remoto interativo em 10 ou mais hosts
+    distintos em uma hora. O limiar é uma referência e deve ser calibrado pelo
+    baseline do ambiente.
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+correlation:
+    type: value_count
+    rules:
+        - th_lat_001_logon_rede
+    group-by:
+        - TargetUserName
+    timespan: 1h
+    condition:
+        gte: 10
+        field: Computer
+falsepositives:
+    - Contas de serviço de inventário, backup e gestão
+    - Administradores aplicando mudanças em massa
+level: medium
+---
+title: TH-LAT-001 - Logon com credenciais alternativas indicativo de pass the hash
+id: 46d4421a-09e8-491e-886e-bed0aad588f7
+status: experimental
+description: >-
+    Logon do tipo 9 (credenciais novas para conexões de saída) pelo processo de logon
+    seclogo com pacote Negotiate, padrão associado ao uso de hash de senha com
+    ferramentas de extração de credenciais.
+references:
+    - https://attack.mitre.org/techniques/T1550/002/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.lateral-movement
+    - attack.stealth
+    - attack.t1550.002
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4624
+        LogonType: 9
+        LogonProcessName: 'seclogo'
+        AuthenticationPackageName: 'Negotiate'
+    condition: selection
+falsepositives:
+    - Uso legítimo de "executar como" com a opção de credenciais apenas para rede
+level: high
+---
+title: TH-LAT-001 - Serviço de execução remota instalado no host
+id: d78ea302-7156-4f3c-b8fd-254c9f13eb63
+status: experimental
+description: >-
+    Instalação do serviço usado pelo PsExec (MITRE ATT&CK S0029) ou de serviço
+    executado a partir do compartilhamento administrativo, padrão de execução
+    remota de comandos.
+references:
+    - https://attack.mitre.org/software/S0029/
+    - https://attack.mitre.org/techniques/T1021/002/
+    - https://attack.mitre.org/techniques/T1569/002/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.lateral-movement
+    - attack.t1021.002
+    - attack.execution
+    - attack.t1569.002
+logsource:
+    product: windows
+    service: system
+detection:
+    selection_evento:
+        Provider_Name: 'Service Control Manager'
+        EventID: 7045
+    selection_servico:
+        - ServiceName: 'PSEXESVC'
+        - ImagePath|contains:
+            - '\ADMIN$\'
+            - 'PSEXESVC'
+    condition: all of selection_*
+falsepositives:
+    - Uso administrativo autorizado de ferramentas de execução remota
+level: medium
+---
+title: TH-LAT-001 - Execução remota de comandos por WMI, WinRM ou PowerShell
+id: a73df502-a031-448c-97e4-cf31c2e98944
+status: experimental
+description: >-
+    Linha de comando que inicia processos em outro host por WMI, WinRM ou
+    PowerShell Remoting.
+references:
+    - https://attack.mitre.org/techniques/T1021/006/
+    - https://attack.mitre.org/techniques/T1047/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.lateral-movement
+    - attack.t1021.006
+    - attack.execution
+    - attack.t1047
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_wmic:
+        CommandLine|contains|all:
+            - '/node:'
+            - 'process'
+            - 'call'
+            - 'create'
+    selection_winrs:
+        CommandLine|contains:
+            - 'winrs -r'
+            - 'winrs /r'
+            - 'winrs.exe -r'
+            - 'winrs.exe /r'
+    selection_psremoting:
+        CommandLine|contains|all:
+            - 'Invoke-Command'
+            - '-ComputerName'
+    condition: 1 of selection_*
+falsepositives:
+    - Administração remota legítima e ferramentas de gestão
+level: medium

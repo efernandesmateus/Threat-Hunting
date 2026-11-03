@@ -1,0 +1,170 @@
+# TH-COL-001 — Compactação de grandes volumes de arquivos antes da saída
+# Regras Sigma de apoio ao hunt. Ver th-col-001-compactacao-grandes-volumes.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006).
+# As regras detectam o COMPORTAMENTO (senha, criptografia de cabeçalhos, divisão em
+# volumes, diretórios de preparação), sem depender do nome do compactador.
+# O volume de dados e a quantidade de arquivos ficam na pseudoconsulta do hunt.
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-COL-001 - Compactação com senha ou criptografia de cabeçalhos
+id: ad39c2d7-0b94-4a6b-aff3-ed781192ed9e
+status: experimental
+description: >-
+    Linha de comando de compactação (comando de adicionar a um arquivo compactado)
+    com parâmetro de senha ou de criptografia dos nomes de arquivos.
+references:
+    - https://attack.mitre.org/techniques/T1560/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.collection
+    - attack.t1560.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_acao:
+        CommandLine|re: '(?i)\s(a|u)\s'
+    selection_senha:
+        - CommandLine|re: '(?i)\s-(hp|p)\S{2,}'
+        - CommandLine|contains: '-mhe=on'
+    selection_extensao:
+        CommandLine|contains:
+            - '.7z'
+            - '.rar'
+            - '.zip'
+            - '.tar'
+            - '.gz'
+    condition: all of selection_*
+falsepositives:
+    - Rotinas de backup que protegem os arquivos com senha
+level: medium
+---
+title: TH-COL-001 - Compactação com divisão em volumes
+id: 2297f9a3-d43f-4a18-b870-ee686ab5072d
+status: experimental
+description: >-
+    Linha de comando de compactação com divisão do resultado em volumes de tamanho
+    fixo, usada para facilitar a saída de grandes quantidades de dados.
+references:
+    - https://attack.mitre.org/techniques/T1560/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.collection
+    - attack.t1560.001
+    - attack.exfiltration
+    - attack.t1030
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_acao:
+        CommandLine|re: '(?i)\s(a|u)\s'
+    selection_volume:
+        CommandLine|re: '(?i)\s-v\d+[kmgb]?(\s|$)'
+    selection_extensao:
+        CommandLine|contains:
+            - '.7z'
+            - '.rar'
+            - '.zip'
+    condition: all of selection_*
+falsepositives:
+    - Rotinas de backup que dividem arquivos para mídia ou transferência
+level: medium
+---
+title: TH-COL-001 - Arquivo compactado criado em diretório de preparação
+id: b5d4259c-2c05-40d7-ad7d-951c178f8c75
+status: experimental
+description: >-
+    Arquivo compactado criado em diretórios frequentemente usados como área de
+    preparação de dados antes da exfiltração.
+references:
+    - https://attack.mitre.org/techniques/T1074/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.collection
+    - attack.t1074.001
+    - attack.t1560.001
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection_extensao:
+        TargetFilename|endswith:
+            - '.7z'
+            - '.rar'
+            - '.zip'
+            - '.tar'
+            - '.gz'
+            - '.tgz'
+    selection_diretorio:
+        TargetFilename|contains:
+            - '\Users\Public\'
+            - '\ProgramData\'
+            - '\PerfLogs\'
+            - '\$Recycle.Bin\'
+            - '\Windows\Temp\'
+    condition: all of selection_*
+falsepositives:
+    - Instaladores e atualizadores que descompactam ou armazenam pacotes em ProgramData
+level: low
+---
+title: TH-COL-001 - Compactação com o recurso nativo do PowerShell em diretório de preparação
+id: e20aa131-9b78-45be-b9d6-05b458e88a10
+status: experimental
+description: >-
+    Uso do Compress-Archive com destino em diretório frequentemente usado como área
+    de preparação.
+references:
+    - https://attack.mitre.org/techniques/T1560/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.collection
+    - attack.t1560
+    - attack.t1074.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_cmdlet:
+        CommandLine|contains: 'Compress-Archive'
+    selection_destino:
+        CommandLine|contains:
+            - '\Users\Public\'
+            - '\ProgramData\'
+            - '\PerfLogs\'
+            - '\Windows\Temp\'
+            - '$env:TEMP'
+            - '%TEMP%'
+    condition: all of selection_*
+falsepositives:
+    - Scripts administrativos de coleta de logs para suporte
+level: medium
+---
+title: TH-COL-001 - Compactação com senha ou criptografia no Linux
+id: 9c5a6ff7-4d63-48ca-919b-a700087b3ea9
+status: experimental
+description: >-
+    Compactação com senha pelo zip ou compactação seguida de criptografia por
+    canalização para openssl ou gpg.
+references:
+    - https://attack.mitre.org/techniques/T1560/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.collection
+    - attack.t1560.001
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection_zip_senha:
+        CommandLine|re: '(?:^|[\s/])zip\b.*\s-(P\s+\S+|e)(\s|$)'
+    selection_cripto:
+        CommandLine|re: '\b(tar|zip|gzip)\b[^|]*\|\s*(openssl|gpg)\b'
+    condition: 1 of selection_*
+falsepositives:
+    - Rotinas de backup criptografado
+level: medium

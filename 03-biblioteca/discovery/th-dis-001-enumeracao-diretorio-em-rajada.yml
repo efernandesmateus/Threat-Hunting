@@ -1,0 +1,167 @@
+# TH-DIS-001 — Enumeração do diretório e de grupos privilegiados em rajada
+# Regras Sigma de apoio ao hunt. Ver th-dis-001-enumeracao-diretorio-em-rajada.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006).
+# Os nomes de campos seguem a taxonomia genérica do Sigma e devem ser mapeados na conversão.
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-DIS-001 - Enumeração de contas e grupos do domínio com net
+id: 48297e85-c8d1-44a8-aa07-50aa466db0f6
+name: th_dis_001_net_domain
+status: experimental
+description: >-
+    Uso do net para consultar usuários e grupos do domínio. Comum em
+    administração; isoladamente é de baixo valor e serve de base para a
+    correlação de rajada abaixo.
+references:
+    - https://attack.mitre.org/techniques/T1087/002/
+    - https://attack.mitre.org/techniques/T1069/002/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.discovery
+    - attack.t1087.002
+    - attack.t1069.002
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+            - '\net.exe'
+            - '\net1.exe'
+        - OriginalFileName:
+            - 'net.exe'
+            - 'net1.exe'
+    selection_args:
+        CommandLine|contains:
+            - ' group'
+            - ' user'
+            - ' accounts'
+    selection_domain:
+        CommandLine|contains: '/domain'
+    condition: all of selection_*
+falsepositives:
+    - Administração do domínio e scripts de suporte
+level: low
+---
+title: TH-DIS-001 - Enumeração de controladores e relações de confiança com nltest
+id: ad36b468-55c6-4c77-88a6-35be1b8f8c33
+name: th_dis_001_nltest
+status: experimental
+description: Uso do nltest para listar relações de confiança ou controladores de domínio.
+references:
+    - https://attack.mitre.org/techniques/T1482/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.discovery
+    - attack.t1482
+    - attack.t1018
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\nltest.exe'
+        - OriginalFileName: 'nltestrk.exe'
+    selection_args:
+        CommandLine|contains:
+            - '/domain_trusts'
+            - '/all_trusts'
+            - '/trusted_domains'
+            - '/dclist'
+            - '/dsgetdc'
+    condition: all of selection_*
+falsepositives:
+    - Diagnóstico de replicação e de relações de confiança por administradores
+level: medium
+---
+title: TH-DIS-001 - Parâmetros de enumeração do AdFind
+id: 7e0497c6-ddec-466e-9022-6964044104f0
+status: experimental
+description: >-
+    Linha de comando com parâmetros característicos do AdFind (MITRE ATT&CK S0552),
+    ferramenta de consulta ao diretório amplamente usada por adversários.
+references:
+    - https://attack.mitre.org/software/S0552/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.discovery
+    - attack.t1087.002
+    - attack.t1069.002
+    - attack.t1482
+    - attack.t1018
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_args:
+        CommandLine|contains:
+            - 'trustdmp'
+            - 'domainlist'
+            - 'dcmodes'
+            - 'adinfo'
+            - 'dclist'
+            - 'computers_pwdnotreqd'
+    selection_objeto:
+        CommandLine|contains|all:
+            - '-f'
+            - 'objectcategory='
+    condition: 1 of selection_*
+falsepositives:
+    - Uso administrativo autorizado da ferramenta
+level: high
+---
+title: TH-DIS-001 - Coletor de dados do BloodHound
+id: e246c034-bae2-4290-a530-6dbd67ed4dcf
+status: experimental
+description: >-
+    Execução do coletor de dados do BloodHound (MITRE ATT&CK S0521), que mapeia
+    relações e caminhos de ataque no diretório.
+references:
+    - https://attack.mitre.org/software/S0521/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.discovery
+    - attack.t1087.002
+    - attack.t1069.002
+    - attack.t1482
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains:
+            - '-CollectionMethod'
+            - '--CollectionMethods'
+            - 'Invoke-BloodHound'
+            - 'SharpHound'
+    condition: selection
+falsepositives:
+    - Avaliações autorizadas de segurança do diretório
+level: high
+---
+title: TH-DIS-001 - Rajada de comandos de enumeração do domínio
+id: 5ce6f5d6-6e24-4d75-9d98-0f3ece800e11
+status: experimental
+description: >-
+    Cinco ou mais comandos de enumeração do domínio (net e nltest) pelo mesmo
+    usuário no mesmo host em quinze minutos. O limiar é uma referência e deve ser
+    calibrado pelo baseline do ambiente.
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+correlation:
+    type: event_count
+    rules:
+        - th_dis_001_net_domain
+        - th_dis_001_nltest
+    group-by:
+        - Computer
+        - User
+    timespan: 15m
+    condition:
+        gte: 5
+falsepositives:
+    - Scripts administrativos de inventário do domínio
+level: medium

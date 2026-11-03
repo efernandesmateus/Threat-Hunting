@@ -24,17 +24,17 @@ Uma subpasta por tática do MITRE ATT&CK. IDs, nomes de arquivo e siglas seguem 
 | [TH-STL-001](stealth/th-stl-001-utilitarios-legitimos-executando-codigo.md) | Utilitários legítimos do sistema usados para executar código | Stealth | Proposto | 1.0 |
 | [TH-DIM-001](defense-impairment/th-dim-001-desativacao-ferramentas-logs.md) | Desativação ou alteração de ferramentas de segurança e de logs | Defense Impairment | Proposto | 1.0 |
 | [TH-CRD-001](credential-access/th-crd-001-acesso-memoria-processo-autenticacao.md) | Acesso à memória do processo de autenticação do sistema | Credential Access | Proposto | 1.0 |
+| [TH-DIS-001](discovery/th-dis-001-enumeracao-diretorio-em-rajada.md) | Enumeração do diretório e de grupos privilegiados em rajada | Discovery | Proposto | 1.0 |
+| [TH-LAT-001](lateral-movement/th-lat-001-movimentacao-lateral-contas-administrativas.md) | Movimentação lateral com contas administrativas entre hosts | Lateral Movement | Proposto | 1.0 |
+| [TH-COL-001](collection/th-col-001-compactacao-grandes-volumes.md) | Compactação de grandes volumes de arquivos antes da saída | Collection | Proposto | 1.0 |
 | [TH-EXF-001](exfiltration/th-exf-001-exfiltracao-via-dns.md) | Exfiltração de dados via DNS | Exfiltration | Proposto | 1.0 |
 
 ## Hunts planejados
 
-A biblioteca inicial prevê **12 hunts**, escolhidos pela relevância das técnicas e pela disponibilidade de telemetria nos ambientes, e não para cobrir todas as táticas. Eles são publicados em blocos de três por versão. Já publicados: 7. Planejados:
+A biblioteca inicial prevê **12 hunts**, escolhidos pela relevância das técnicas e pela disponibilidade de telemetria nos ambientes, e não para cobrir todas as táticas. Eles são publicados em blocos de três por versão. Já publicados: 10. Planejados:
 
 | ID | Hipótese | Tática |
 |----|----------|--------|
-| TH-DIS-001 | Enumeração do diretório e de grupos privilegiados em rajada | Discovery |
-| TH-LAT-001 | Movimentação lateral com contas administrativas entre hosts | Lateral Movement |
-| TH-COL-001 | Compactação de grandes volumes de arquivos antes da saída | Collection |
 | TH-C2-001 | Beaconing: conexões periódicas para destinos raros | Command and Control |
 | TH-IMP-001 | Preparação para ransomware: exclusão de backups e cópias de recuperação | Impact |
 
