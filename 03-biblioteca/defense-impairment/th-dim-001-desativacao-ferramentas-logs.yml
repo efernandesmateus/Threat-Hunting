@@ -1,0 +1,201 @@
+# TH-DIM-001 — Desativação ou alteração de ferramentas de segurança e de logs
+# Regras Sigma de apoio ao hunt. Ver th-dim-001-desativacao-ferramentas-logs.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006).
+# Os nomes de campos seguem a taxonomia genérica do Sigma e devem ser mapeados na conversão.
+# A parada de agentes de segurança específicos e o "silêncio de telemetria" dependem da
+# lista de serviços e do baseline de cada ambiente e ficam na pseudoconsulta do hunt.
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-DIM-001 - Log de segurança do Windows limpo
+id: f451c974-f169-40e2-9061-7cc516dbf719
+status: experimental
+description: O log de segurança foi limpo (evento 1102).
+references:
+    - https://attack.mitre.org/techniques/T1685/005/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.defense-impairment
+    - attack.t1685.005
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 1102
+    condition: selection
+falsepositives:
+    - Limpeza planejada e documentada por administradores (rara em produção)
+level: high
+---
+title: TH-DIM-001 - Log do sistema ou de aplicação do Windows limpo
+id: 74b3afa0-097c-458e-a430-54d68215b890
+status: experimental
+description: Um log de eventos foi limpo (evento 104 do serviço de log de eventos).
+references:
+    - https://attack.mitre.org/techniques/T1685/005/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.defense-impairment
+    - attack.t1685.005
+logsource:
+    product: windows
+    service: system
+detection:
+    selection:
+        Provider_Name: 'Microsoft-Windows-Eventlog'
+        EventID: 104
+    condition: selection
+falsepositives:
+    - Limpeza planejada e documentada por administradores (rara em produção)
+level: high
+---
+title: TH-DIM-001 - Auditoria do Windows desativada
+id: 5f85fe03-52cf-4a3b-bb76-e108e5aaf40c
+status: experimental
+description: >-
+    Política de auditoria alterada com remoção da auditoria de sucesso ou de falha
+    (evento 4719).
+references:
+    - https://attack.mitre.org/techniques/T1685/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.defense-impairment
+    - attack.t1685.001
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4719
+        AuditPolicyChanges|contains:
+            - '%%8448'
+            - '%%8450'
+    condition: selection
+falsepositives:
+    - Mudanças planejadas de política de auditoria
+level: high
+---
+title: TH-DIM-001 - Limpeza de logs, desativação de auditoria ou do firewall por linha de comando
+id: 0ebe1813-7a21-4003-ba5c-30024f4129f9
+status: experimental
+description: >-
+    Uso de wevtutil para limpar logs, de auditpol para remover ou desativar
+    auditoria, ou de netsh para desligar o firewall do host.
+references:
+    - https://attack.mitre.org/techniques/T1685/005/
+    - https://attack.mitre.org/techniques/T1685/001/
+    - https://attack.mitre.org/techniques/T1686/003/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.defense-impairment
+    - attack.t1685.005
+    - attack.t1685.001
+    - attack.t1686.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    wevtutil_img:
+        - Image|endswith: '\wevtutil.exe'
+        - OriginalFileName: 'wevtutil.exe'
+    wevtutil_args:
+        CommandLine|contains:
+            - ' cl '
+            - ' clear-log '
+    auditpol_img:
+        - Image|endswith: '\auditpol.exe'
+        - OriginalFileName: 'AUDITPOL.EXE'
+    auditpol_args:
+        CommandLine|contains:
+            - '/clear'
+            - '/remove'
+            - ':disable'
+    netsh_img:
+        - Image|endswith: '\netsh.exe'
+        - OriginalFileName: 'netsh.exe'
+    netsh_args:
+        - CommandLine|contains|all:
+            - 'advfirewall'
+            - 'state off'
+        - CommandLine|contains|all:
+            - 'firewall'
+            - 'opmode'
+            - 'disable'
+    condition: (wevtutil_img and wevtutil_args) or (auditpol_img and auditpol_args) or (netsh_img and netsh_args)
+falsepositives:
+    - Scripts administrativos de manutenção ou de preparação de imagens
+level: high
+---
+title: TH-DIM-001 - Auditoria ou serviço de log do Linux desativado
+id: 4833917a-a639-43e9-8916-57fd94ae82fe
+status: experimental
+description: >-
+    Desativação do sistema de auditoria (auditctl) ou parada e desabilitação de
+    serviços de auditoria e de log.
+references:
+    - https://attack.mitre.org/techniques/T1685/004/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.defense-impairment
+    - attack.t1685.004
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    auditctl_img:
+        Image|endswith: '/auditctl'
+    auditctl_args:
+        CommandLine|re: '\s-(e\s*0|D)(\s|$)'
+    servico_img:
+        Image|endswith:
+            - '/systemctl'
+            - '/service'
+    servico_acao:
+        CommandLine|contains:
+            - 'stop'
+            - 'disable'
+            - 'mask'
+            - 'kill'
+    servico_alvo:
+        CommandLine|contains:
+            - 'auditd'
+            - 'rsyslog'
+            - 'syslog-ng'
+            - 'systemd-journald'
+    condition: (auditctl_img and auditctl_args) or (servico_img and servico_acao and servico_alvo)
+falsepositives:
+    - Manutenção planejada dos serviços de log por administradores
+level: high
+---
+title: TH-DIM-001 - Supressão do histórico de comandos do shell
+id: aa5b60ba-b3a7-442a-9b4d-8019e411372f
+status: experimental
+description: >-
+    Comandos que desativam ou apagam o histórico do shell. Só aparecem na
+    telemetria de processos quando passados a um novo shell (por exemplo, bash -c).
+references:
+    - https://attack.mitre.org/techniques/T1690/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.defense-impairment
+    - attack.t1690
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection:
+        CommandLine|contains:
+            - 'HISTFILE=/dev/null'
+            - 'unset HISTFILE'
+            - 'HISTSIZE=0'
+            - 'HISTFILESIZE=0'
+            - 'history -c'
+    condition: selection
+falsepositives:
+    - Scripts que desativam o histórico por motivos de privacidade em contas de automação
+level: medium

@@ -2,7 +2,7 @@
 
 Metodologia aberta para estruturar e operar um **serviço de threat hunting** em SOCs e provedores de serviços gerenciados de segurança (MSSPs): definição do serviço, processo, templates, biblioteca de hunts, onboarding de clientes e avaliação de maturidade.
 
-> **Status:** v1.1.0 — metodologia completa; biblioteca de hunts em expansão (4 de 12 hunts publicados). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
+> **Status:** v1.2.0 — metodologia completa; biblioteca de hunts em expansão (7 de 12 hunts publicados). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
 
 ## O que é threat hunting neste projeto
 
@@ -83,7 +83,8 @@ Este repositório guarda **metodologia**, nunca dados operacionais. Não inclua 
 **Biblioteca (a partir da v1.1.0)**
 
 - [x] Bloco 1 (v1.1.0): TH-INI-001, TH-EXE-001 e TH-PER-001
-- [ ] 8 hunts planejados, em blocos de três por versão (ver [`03-biblioteca/`](03-biblioteca/README.md#hunts-planejados))
+- [x] Bloco 2 (v1.2.0): TH-STL-001, TH-DIM-001 e TH-CRD-001
+- [ ] 5 hunts planejados, em blocos por versão (ver [`03-biblioteca/`](03-biblioteca/README.md#hunts-planejados))
 
 ## Como contribuir
 

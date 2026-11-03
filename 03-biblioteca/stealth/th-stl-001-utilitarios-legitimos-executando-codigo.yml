@@ -1,0 +1,163 @@
+# TH-STL-001 — Utilitários legítimos do sistema usados para executar código
+# Regras Sigma de apoio ao hunt. Ver th-stl-001-utilitarios-legitimos-executando-codigo.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006).
+# Os nomes de campos seguem a taxonomia genérica do Sigma e devem ser mapeados na conversão.
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-STL-001 - Rundll32 com conteúdo remoto, script ou DLL em diretório gravável
+id: f5debcfb-d2aa-4403-87d6-e9ab759c4dbd
+status: experimental
+description: >-
+    Rundll32 executando script inline, buscando conteúdo remoto ou carregando DLL
+    a partir de diretório gravável por usuários.
+references:
+    - https://attack.mitre.org/techniques/T1218/011/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.stealth
+    - attack.t1218.011
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\rundll32.exe'
+        - OriginalFileName: 'RUNDLL32.EXE'
+    selection_args:
+        CommandLine|contains:
+            - 'javascript:'
+            - 'vbscript:'
+            - 'http://'
+            - 'https://'
+            - '\AppData\'
+            - '\Users\Public\'
+            - '\Temp\'
+            - '\ProgramData\'
+            - '\Downloads\'
+    condition: all of selection_*
+falsepositives:
+    - Componentes legítimos de software instalado por usuário em AppData
+level: medium
+---
+title: TH-STL-001 - Regsvr32 carregando scriptlet remoto ou componente de script
+id: 2f52ff02-fe20-451e-bfd9-ceb2ed7d6ebf
+status: experimental
+description: >-
+    Regsvr32 usado para carregar scriptlet a partir de URL ou o componente de
+    execução de scriptlets.
+references:
+    - https://attack.mitre.org/techniques/T1218/010/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.stealth
+    - attack.t1218.010
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\regsvr32.exe'
+        - OriginalFileName: 'REGSVR32.EXE'
+    selection_args:
+        - CommandLine|contains|all:
+            - '/i:'
+            - 'http'
+        - CommandLine|contains: 'scrobj.dll'
+    condition: all of selection_*
+falsepositives:
+    - Raros em ambientes corporativos; validar com o baseline
+level: high
+---
+title: TH-STL-001 - Mshta executando conteúdo remoto ou script inline
+id: 9a383ad7-5499-40a8-ab7b-4c42ab731099
+status: experimental
+description: >-
+    Mshta buscando aplicativo HTML remoto ou executando script inline.
+references:
+    - https://attack.mitre.org/techniques/T1218/005/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.stealth
+    - attack.t1218.005
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\mshta.exe'
+        - OriginalFileName: 'MSHTA.EXE'
+    selection_args:
+        CommandLine|contains:
+            - 'http://'
+            - 'https://'
+            - 'javascript:'
+            - 'vbscript:'
+    condition: all of selection_*
+falsepositives:
+    - Aplicações legadas baseadas em HTA (verificar origem)
+level: high
+---
+title: TH-STL-001 - Msiexec instalando pacote remoto
+id: afedb0a8-9d2e-485a-8a5e-aca7b894b063
+status: experimental
+description: >-
+    Msiexec instalando pacote diretamente de uma URL.
+references:
+    - https://attack.mitre.org/techniques/T1218/007/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.stealth
+    - attack.t1218.007
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\msiexec.exe'
+        - OriginalFileName: 'msiexec.exe'
+    selection_install:
+        CommandLine|re: '(?i)[/-](i|package)\s'
+    selection_url:
+        CommandLine|contains:
+            - 'http://'
+            - 'https://'
+    condition: all of selection_*
+falsepositives:
+    - Ferramentas de implantação de software que instalam pacotes a partir de servidores internos via HTTP
+level: medium
+---
+title: TH-STL-001 - Certutil usado para baixar ou decodificar arquivos
+id: 53903fb2-b05f-48d6-8354-a26e8396302c
+status: experimental
+description: >-
+    Certutil com parâmetros de download de URL ou de decodificação de arquivos.
+references:
+    - https://attack.mitre.org/techniques/T1140/
+    - https://attack.mitre.org/techniques/T1105/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.stealth
+    - attack.t1140
+    - attack.command-and-control
+    - attack.t1105
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\certutil.exe'
+        - OriginalFileName: 'CertUtil.exe'
+    selection_args:
+        CommandLine|contains:
+            - 'urlcache'
+            - 'verifyctl'
+            - '-decode'
+            - '/decode'
+    condition: all of selection_*
+falsepositives:
+    - Uso administrativo pontual para conversão de certificados
+level: high

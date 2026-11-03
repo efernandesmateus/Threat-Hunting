@@ -54,9 +54,9 @@ Categorias de fonte que cada hunt da biblioteca exige. Use como ponto de partida
 | TH-INI-001 — Acesso remoto externo de origem incomum | Proposto | — | — | — | — | C | O |
 | TH-EXE-001 — Interpretadores com comandos codificados | Proposto | — | — | O\* | O\* | — | — |
 | TH-PER-001 — Tarefas e serviços fora do padrão | Proposto | — | — | O\* | O\* | C | — |
-| TH-STL-001 — Utilitários legítimos executando código | Planejado | — | C | O | — | — | — |
-| TH-DIM-001 — Desativação de ferramentas e logs | Planejado | — | — | O\* | O\* | — | — |
-| TH-CRD-001 — Acesso à memória do processo de autenticação | Planejado | — | — | O | — | — | — |
+| TH-STL-001 — Utilitários legítimos executando código | Proposto | — | C | O | — | — | — |
+| TH-DIM-001 — Desativação de ferramentas e logs | Proposto | — | — | O\* | O\* | — | — |
+| TH-CRD-001 — Acesso à memória do processo de autenticação | Proposto | — | — | O | — | C | — |
 | TH-DIS-001 — Enumeração do diretório em rajada | Planejado | — | — | C | — | O | — |
 | TH-LAT-001 — Movimentação lateral com contas administrativas | Planejado | — | — | C | — | O | — |
 | TH-COL-001 — Compactação de grandes volumes de arquivos | Planejado | — | C | O | — | — | — |

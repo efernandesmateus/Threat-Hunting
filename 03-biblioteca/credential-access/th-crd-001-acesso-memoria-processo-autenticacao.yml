@@ -1,0 +1,151 @@
+# TH-CRD-001 — Acesso à memória do processo de autenticação do sistema
+# Regras Sigma de apoio ao hunt. Ver th-crd-001-acesso-memoria-processo-autenticacao.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006).
+# Os nomes de campos seguem a taxonomia genérica do Sigma e devem ser mapeados na conversão.
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-CRD-001 - Acesso ao processo LSASS com permissões de leitura de memória
+id: 1e94700a-e6d8-4556-8041-395a8f8a2e4b
+status: experimental
+description: >-
+    Processo abrindo o LSASS com máscaras de acesso que incluem leitura de memória.
+    Regra de apoio ao stacking do hunt: o ruído depende dos processos legítimos de
+    cada ambiente e deve ser tratado com a lista de exceções.
+references:
+    - https://attack.mitre.org/techniques/T1003/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    category: process_access
+    product: windows
+detection:
+    selection:
+        TargetImage|endswith: '\lsass.exe'
+        GrantedAccess:
+            - '0x1010'
+            - '0x1410'
+            - '0x1438'
+            - '0x143a'
+            - '0x1f1fff'
+            - '0x1f3fff'
+            - '0x1fffff'
+    condition: selection
+falsepositives:
+    - Agentes de segurança, de monitoramento e de gestão que inspecionam o LSASS
+level: medium
+---
+title: TH-CRD-001 - Dump de memória via comsvcs.dll
+id: f8df34f6-965c-46bc-a488-1c4e3bf6921b
+status: experimental
+description: >-
+    Uso da função de minidump da biblioteca nativa comsvcs.dll por meio do rundll32,
+    técnica comum para gerar dump do LSASS sem ferramentas externas.
+references:
+    - https://attack.mitre.org/techniques/T1003/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+    - attack.stealth
+    - attack.t1218.011
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_lib:
+        CommandLine|contains: 'comsvcs'
+    selection_funcao:
+        CommandLine|contains:
+            - 'minidump'
+            - '#24'
+    condition: all of selection_*
+falsepositives:
+    - Raros; uso de diagnóstico por suporte técnico deve ser confirmado
+level: high
+---
+title: TH-CRD-001 - Arquivo de dump do LSASS criado
+id: b83c153c-6d37-4726-ae56-014d2fc2831e
+status: experimental
+description: Criação de arquivo de dump cujo nome indica o processo LSASS.
+references:
+    - https://attack.mitre.org/techniques/T1003/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection:
+        TargetFilename|contains: 'lsass'
+        TargetFilename|endswith:
+            - '.dmp'
+            - '.dump'
+    condition: selection
+falsepositives:
+    - Coleta de diagnóstico solicitada pelo suporte do sistema operacional
+level: high
+---
+title: TH-CRD-001 - Linha de comando com referência a dump do LSASS
+id: d27b8ea9-9917-4b52-83d6-a3f068efd1f1
+status: experimental
+description: >-
+    Linha de comando que referencia o LSASS junto com parâmetros ou extensões de
+    dump de memória, típica de utilitários de diagnóstico usados para extrair
+    credenciais.
+references:
+    - https://attack.mitre.org/techniques/T1003/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_alvo:
+        CommandLine|contains: 'lsass'
+    selection_dump:
+        CommandLine|contains:
+            - '.dmp'
+            - ' -ma '
+            - ' /ma '
+            - 'minidump'
+    condition: all of selection_*
+falsepositives:
+    - Coleta de diagnóstico solicitada pelo suporte do sistema operacional
+level: high
+---
+title: TH-CRD-001 - Comandos de ferramenta de extração de credenciais
+id: 449adb1a-5893-4b77-abef-f2c6f9611cb9
+status: experimental
+description: >-
+    Linha de comando com módulos característicos da ferramenta Mimikatz (MITRE
+    ATT&CK S0002), usada para extrair credenciais da memória.
+references:
+    - https://attack.mitre.org/software/S0002/
+    - https://attack.mitre.org/techniques/T1003/001/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains:
+            - 'sekurlsa::'
+            - 'lsadump::'
+            - 'privilege::debug'
+    condition: selection
+falsepositives:
+    - Exercícios autorizados de red team e pentest
+level: critical

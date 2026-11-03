@@ -10,6 +10,23 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [1.2.0] - 2026-11-03
+
+Segundo bloco de hunts da biblioteca.
+
+### Adicionado
+
+- `03-biblioteca/stealth/th-stl-001-utilitarios-legitimos-executando-codigo.md` (v1.0, Proposto) e regras Sigma (5 regras): utilitários nativos do Windows usados para executar ou buscar código (rundll32, regsvr32, mshta, msiexec, certutil), incluindo cópias renomeadas.
+- `03-biblioteca/defense-impairment/th-dim-001-desativacao-ferramentas-logs.md` (v1.0, Proposto) e regras Sigma (6 regras, Windows e Linux): limpeza de logs, desativação de auditoria, do firewall e de agentes, supressão de histórico e **silêncio de telemetria**.
+- `03-biblioteca/credential-access/th-crd-001-acesso-memoria-processo-autenticacao.md` (v1.0, Proposto) e regras Sigma (5 regras): acesso à memória do LSASS, dumps e técnicas conhecidas de extração de credenciais.
+- Dois hunts futuros no backlog: complementos para Linux e macOS do TH-STL-001 e do TH-CRD-001.
+
+### Alterado
+
+- `03-biblioteca/README.md`: índice com os novos hunts e lista de planejados atualizada.
+- `04-onboarding/matriz-de-cobertura.md`: status dos novos hunts.
+- `README.md`: status e roadmap.
+
 ## [1.1.0] - 2026-11-03
 
 Primeiro bloco de hunts da biblioteca.
