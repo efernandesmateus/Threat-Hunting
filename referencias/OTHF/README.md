@@ -57,7 +57,7 @@ O módulo central. Resume o framework em cinco passos: conhecer as ameaças apli
 - **Cadência:** gatilhos para novos hunts (nova inteligência, incidentes, pentests, tabletop, outros hunts, ativos críticos, modelagem de ameaças, regulação), backlog, priorização (com foco no topo da Pirâmide da Dor) e agendamento.
 - **Automação:** abordagem "hunt once" — executar o hunt uma vez e convertê-lo em detecção contínua, com critérios para essa migração.
 - **Melhoria contínua:** lições aprendidas após cada hunt.
-- **Maturidade:** cita o Hunting Maturity Model (HMM) e propõe o modelo do OTHF, com níveis de 0 a 3 em cinco eixos: Pessoas, Processo, Fontes de dados, Threat intel e Métricas. Inclui um arquivo de apresentação com o modelo.
+- **Maturidade:** cita o Hunting Maturity Model (HMM) e propõe o modelo do OTHF, com cinco níveis, de 0 a 4, em cinco eixos: Pessoas, Processo, Fontes de dados, Threat intel e Métricas. Inclui um arquivo de apresentação com o modelo.
 
 ### 7 — Measurement
 

@@ -10,6 +10,22 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [0.7.0] - 2026-11-03
+
+### Adicionado
+
+- `05-maturidade/modelo-de-maturidade.md`: modelo em cinco eixos e cinco níveis (0 a 4), com 65 critérios verificáveis e cumulativos, regras de avaliação, duas visões (cliente e com o serviço) e indicação de quem pode atender cada critério.
+- `05-maturidade/questionario-assessment.md`: roteiro de condução, com pergunta e evidência esperada para cada critério.
+- `05-maturidade/template-relatorio-maturidade.md`: modelo do relatório de assessment, com perfil por eixo, lacunas, recomendações priorizadas e evolução.
+
+### Alterado
+
+- `05-maturidade/README.md`: índice dos documentos e periodicidade de aplicação.
+
+### Corrigido
+
+- `referencias/OTHF/README.md` e `05-maturidade/README.md`: o modelo de maturidade do OTHF tem cinco níveis (0 a 4), e não quatro (0 a 3), como registrado anteriormente.
+
 ## [0.6.0] - 2026-11-03
 
 ### Adicionado

@@ -1,15 +1,25 @@
 # 05 — Maturidade
 
-Avalia a maturidade de threat hunting do cliente e acompanha sua evolução.
+Avalia a maturidade de threat hunting do cliente e acompanha sua evolução ao longo do contrato.
 
-## Conteúdo previsto
+## Documentos
 
-- Assessment de maturidade nos eixos Pessoas, Processo, Fontes de dados, Threat intel e Métricas, em níveis de 0 a 3.
-- Adaptação para o modelo MSSP: o que é responsabilidade do SOC e o que depende do cliente.
-- Uso do assessment como entrega inicial do serviço e como medida de evolução ao longo do contrato.
+| Documento | Uso |
+|-----------|-----|
+| [Modelo de maturidade](modelo-de-maturidade.md) | Cinco eixos, cinco níveis (0 a 4), 65 critérios verificáveis, regras de avaliação e as duas visões (cliente e com o serviço) |
+| [Questionário de assessment](questionario-assessment.md) | Pergunta e evidência esperada para cada critério, com o roteiro de condução |
+| [Template de relatório de maturidade](template-relatorio-maturidade.md) | Perfil por eixo, lacunas para o próximo nível, recomendações priorizadas e evolução |
+
+O questionário respondido e o relatório preenchido contêm informações do cliente e ficam fora deste repositório ([ADR 0003](../decisoes/0003-sem-dados-reais-no-repositorio.md)).
+
+## Quando aplicar
+
+| Situação | Periodicidade |
+|----------|---------------|
+| Nível **Estratégico** | No início do contrato e anualmente |
+| Níveis **Essencial** e **Avançado** | Como serviço avulso (ver [ofertas](../00-servico/ofertas.md)) |
+| Diagnóstico sem contrato de serviço | Avulso, apenas com a visão do cliente |
 
 ## Origem no OTHF
 
-Módulo 6 (Operational), seção Maturity, e o Hunting Maturity Model (HMM) citado pelo OTHF.
-
-**Status:** a fazer.
+Módulo 6 (Operational), seção Maturity, que também cita o Hunting Maturity Model (HMM).
