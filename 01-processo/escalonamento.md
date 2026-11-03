@@ -44,7 +44,7 @@ flowchart LR
     A[Achado confirmado] --> B[Notificar o responsável do cliente]
     B --> C[Entregar evidências e recomendações de contenção]
     C --> D[Cliente decide e executa a contenção]
-    D --> E[SOC apoia com informações até o encaminhamento à resposta a incidentes]
+    D --> E[SOC apoia até a resposta a incidentes assumir]
 ```
 
 ### Modo contenção pelo SOC

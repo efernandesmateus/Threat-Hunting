@@ -21,4 +21,4 @@ Podem ser citados:
 
 - A metodologia pode ser adotada por qualquer time, independentemente das ferramentas que usa.
 - O resumo do OTHF em `referencias/OTHF/` generaliza as menções a produtos feitas no material original.
-- As consultas dos hunts precisam de um formato que respeite essa regra. O formato das consultas na biblioteca é definido em decisão própria.
+- As consultas dos hunts precisam de um formato que respeite essa regra. O formato das consultas na biblioteca é definido no [ADR 0005](0005-formato-das-consultas.md).

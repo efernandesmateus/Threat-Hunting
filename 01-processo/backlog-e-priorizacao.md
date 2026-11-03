@@ -98,7 +98,7 @@ São hunts executados **fora do planejamento do ciclo**, por um gatilho urgente:
 
 - Avaliados pelo Líder de Hunting assim que o gatilho surge.
 - Se o hunt ainda não existe na biblioteca, desenvolve-se uma **versão mínima** (hipótese, fontes, consulta e triagem), marcada como **Em validação**. Ela é completada depois, pelo processo normal.
-- A execução de um hunt **Em validação** é uma **exceção** à regra do [ciclo de vida](../02-templates/README.md#ciclo-de-vida-campo-status), permitida apenas para hunts extraordinários, com autorização do Líder de Hunting registrada na execução. Os resultados devem ser triados com cautela redobrada, já que o ruído do hunt ainda não é conhecido.
+- A execução de um hunt **Em validação** é uma **exceção** à regra do [status operacional](../02-templates/README.md#status-operacional-no-ambiente-de-quem-adota), permitida apenas para hunts extraordinários, com autorização do Líder de Hunting registrada na execução. Os resultados devem ser triados com cautela redobrada, já que o ruído do hunt ainda não é conhecido.
 - Podem substituir um hunt planejado do ciclo, desde que isso seja registrado.
 
 ---

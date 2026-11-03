@@ -76,11 +76,23 @@ Quando um hunt cobrir várias táticas, classifique-o pela tática principal e l
 
 ## 5. Consultas
 
+- Formato conforme o [ADR 0005](decisoes/0005-formato-das-consultas.md): **pseudoconsulta** obrigatória e **regra Sigma** recomendada, em arquivo `.yml` com o mesmo nome base do hunt.
+- Traduções para plataformas específicas não entram no repositório.
 - Só inclua sintaxe de consulta validada na plataforma.
-- Consulta não validada deve ser marcada com `TODO: validar` e não pode ser usada em cliente até a validação.
+- Consulta não testada em plataforma real deve ser marcada como **Não validada**. Quem adota o hunt deve validá-la no próprio ambiente antes de usá-la em clientes ([ADR 0006](decisoes/0006-validacao-pelo-adotante.md)).
 - Cada consulta indica o **tipo** de plataforma (SIEM, EDR, XDR) e onde ela deve ser executada, sem citar fabricantes ou produtos (ver [ADR 0004](decisoes/0004-neutralidade-de-fabricante.md)).
 
-## 6. Fluxo de trabalho no Git
+## 6. Contribuindo com validações
+
+Se você validou um hunt da biblioteca no seu ambiente, contribua com o resultado: ele pode levar o hunt ao status **Validado pela comunidade**.
+
+1. Abra uma issue ou um pull request com o ID e a versão do hunt.
+2. Informe: **tipo** de plataforma (SIEM, EDR, XDR), data da validação, como os dados de teste foram gerados, período histórico analisado, ruído observado e ajustes necessários na lógica ou nos limiares.
+3. Não cite fabricantes nem produtos, e não inclua dados reais (consultas traduzidas para a sua plataforma ficam com você).
+
+As informações entram na seção 9 do hunt.
+
+## 7. Fluxo de trabalho no Git
 
 - A branch `main` contém apenas conteúdo revisado.
 - Trabalhe em branches com prefixo pelo tipo: `docs/`, `hunt/`, `template/`, `fix/`. Ex.: `hunt/th-exf-001`.
@@ -89,7 +101,7 @@ Quando um hunt cobrir várias táticas, classifique-o pela tática principal e l
 - Mensagens de commit no imperativo e em português. Ex.: `Adiciona template de hunt`.
 - Atualize o [CHANGELOG](CHANGELOG.md) a cada entrega.
 
-## 7. Conteúdo derivado do OTHF
+## 8. Conteúdo derivado do OTHF
 
 - Traduza e adapte para o contexto MSSP; evite copiar trechos longos.
 - Mantenha `referencias/OTHF/LICENSE` intacto.

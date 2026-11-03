@@ -2,7 +2,7 @@
 
 Metodologia aberta para estruturar e operar um **serviço de threat hunting** em SOCs e provedores de serviços gerenciados de segurança (MSSPs): definição do serviço, processo, templates, biblioteca de hunts, onboarding de clientes e avaliação de maturidade.
 
-> **Status:** em construção (v0.3.0). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
+> **Status:** em construção (v0.4.0). Veja o [CHANGELOG](CHANGELOG.md) e o [roadmap](#roadmap).
 
 ## O que é threat hunting neste projeto
 
@@ -47,20 +47,30 @@ A metodologia é **agnóstica de ferramenta** e **não cita fabricantes nem prod
 
 O projeto também **não depende de API de fornecedor** para funcionar (ver [ADR 0002](decisoes/0002-independencia-de-api-de-fornecedor.md)).
 
+## Sobre os hunts da biblioteca
+
+Os hunts são publicados como **Proposto**: completos, com consultas de sintaxe verificada, mas **não validados em plataforma real** pelo projeto. Eles são pontos de partida e devem ser validados no ambiente de quem os adota antes do uso em produção (ver [ADR 0006](decisoes/0006-validacao-pelo-adotante.md)). Validações contribuídas pela comunidade são bem-vindas.
+
 ## Regra de ouro: nenhum dado real
 
 Este repositório guarda **metodologia**, nunca dados operacionais. Não inclua nomes de organizações, logs reais, IPs, hostnames, domínios, usuários, credenciais ou evidências. Detalhes em [CONTRIBUTING.md](CONTRIBUTING.md) e no [ADR 0003](decisoes/0003-sem-dados-reais-no-repositorio.md).
 
 ## Roadmap
 
+**Metodologia (até a v1.0.0)**
+
 - [x] Fundação: estrutura, convenções, decisões iniciais, referência ao OTHF
 - [x] Template de hunt
 - [x] Definição do serviço
 - [x] Processo operacional
-- [ ] Primeiro hunt da biblioteca (exfiltração)
+- [x] Primeiro hunt da biblioteca (exfiltração via DNS)
 - [ ] Template de relatório e métricas
 - [ ] Onboarding de cliente
 - [ ] Assessment de maturidade
+
+**Biblioteca (a partir da v1.1.0)**
+
+- [ ] 11 hunts planejados, em blocos de três por versão (ver [`03-biblioteca/`](03-biblioteca/README.md#hunts-planejados))
 
 ## Como contribuir
 

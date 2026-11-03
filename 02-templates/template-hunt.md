@@ -1,5 +1,5 @@
 <!--
-TEMPLATE DE HUNT — v1.0
+TEMPLATE DE HUNT — v1.1
 Como usar:
 1. Copie este arquivo para 03-biblioteca/<tatica>/<id-em-minusculas>-<descricao-curta>.md
 2. Preencha todas as seções. Seção que não se aplica: escreva "Não se aplica" e explique em uma linha.
@@ -14,9 +14,10 @@ Guia de preenchimento: 02-templates/README.md
 |-------|-------|
 | **ID** | TH-XXX-000 |
 | **Versão** | 0.1 |
-| **Status** | Rascunho |
+| **Status** | Rascunho <!-- Rascunho / Proposto / Validado pela comunidade / Descontinuado --> |
 | **Tática principal** | <Tática MITRE ATT&CK> |
 | **Tipos de plataforma com consulta validada** | <Nenhum / SIEM / EDR / XDR> |
+| **Versão do ATT&CK** | <ex.: v20> |
 | **Esforço estimado por execução** | <ex.: 1–2 h por cliente> |
 | **Autor** | <nome> |
 | **Revisor** | <nome> |
@@ -95,42 +96,60 @@ Descreva em passos o que buscar, como filtrar o normal e o que destacar.
 2.
 3.
 
-## 8. Consultas por plataforma
+## 8. Consultas
 
 <!--
-Uma subseção por tipo de plataforma em que o hunt foi implementado (SIEM, EDR, XDR).
-Não cite fabricantes nem produtos (ADR 0004).
-Status: Validada / TODO: validar. Consulta com "TODO: validar" não pode ser executada em cliente.
-Registre a data em que foi validada.
+Formato definido no ADR 0005. Não cite fabricantes nem produtos (ADR 0004).
+Status: Validada / Não validada. Consulta não validada deve ser testada no ambiente de quem adota antes do uso em clientes (ADR 0006).
 -->
 
-### 8.1 <Tipo de plataforma: SIEM / EDR / XDR>
+### 8.1 Pseudoconsulta
 
-**Status:** TODO: validar
-**Onde executar:** <ex.: busca de eventos, busca avançada de telemetria>
+**Status:** Não validada
 
 ```text
-<consulta ou filtros>
+FONTE:      <fonte de dados e período>
+FILTRO:     <condições de inclusão e exclusão>
+AGREGAÇÃO:  <agrupar por / contar / calcular>
+LIMIAR:     <condição para destacar o resultado (valor de referência, calibrar pelo baseline)>
+SAÍDA:      <campos a apresentar para a triagem>
 ```
 
-**Observações:**
+### 8.2 Regra Sigma
+
+**Status:** Não validada
+**Arquivo:** `<id-em-minusculas>-<descricao-curta>.yml`, na mesma pasta do hunt. Se a lógica não couber em Sigma, escreva "Não se aplica" e explique.
+
+### 8.3 Implementações por plataforma
+
+As traduções para plataformas específicas ficam fora do repositório. Registre aqui apenas em que **tipos** de plataforma a lógica foi validada, e quando.
+
+| Tipo de plataforma | Data da validação | Observações |
+|--------------------|-------------------|-------------|
+| | | |
 
 ## 9. Validação do hunt
 
 <!--
-Como foi comprovado que o hunt encontra o que promete.
-Dados de teste: ex. teste de emulação de adversário mapeado à técnica ATT&CK, script de laboratório, simulação manual.
-Validação histórica: execução em período longo para medir ruído.
+Os hunts da biblioteca são validados por quem os adota (ADR 0006).
+9.1 orienta como validar; 9.2 registra as validações contribuídas.
+Não cite fabricantes nem produtos; informe apenas o tipo de plataforma.
 -->
 
-| Item | Detalhe |
-|------|---------|
-| **Dados de teste usados** | <ex.: teste de emulação da técnica T0000> |
-| **Ambiente de teste** | <ex.: laboratório interno> |
-| **Resultado com dados de teste** | <detectou / não detectou> |
-| **Período histórico testado** | <ex.: 30 dias> |
-| **Ruído observado** | <baixo / médio / alto, e por quê> |
-| **Data da validação** | AAAA-MM-DD |
+### 9.1 Como validar no seu ambiente
+
+**Dados de teste (somente em laboratório ou com autorização formal):**
+
+1. <como reproduzir a técnica para gerar dados de teste>
+2. <o que confirmar para garantir que o teste representa a técnica real>
+
+**Validação histórica:** executar o hunt em pelo menos <período> de dados reais, com autorização, para medir o ruído e calibrar os limiares.
+
+### 9.2 Validações registradas
+
+| Tipo de plataforma | Data | Dados de teste | Detectou? | Período histórico | Ruído | Ajustes sugeridos |
+|--------------------|------|----------------|-----------|-------------------|-------|-------------------|
+| | | | | | | |
 
 ## 10. Triagem dos resultados
 

@@ -1,0 +1,61 @@
+# TH-EXF-001 — Exfiltração de dados via DNS
+# Regras Sigma de apoio ao hunt. Ver th-exf-001-exfiltracao-via-dns.md.
+# Status: sintaxe verificada; não validada em plataforma real (ver ADR 0006). Os nomes de campos seguem a taxonomia genérica do Sigma
+# e devem ser mapeados para a plataforma na conversão.
+# Licença: MIT (ver LICENSE na raiz do repositório).
+title: TH-EXF-001 - Consulta DNS com rótulo de subdomínio longo
+id: bf3f6f32-07b6-4524-ac4f-016a546ec0f1
+name: th_exf_001_rotulo_longo
+status: experimental
+description: >-
+    Identifica consultas DNS em que o primeiro rótulo do nome tem 50 caracteres
+    ou mais, padrão comum quando dados codificados são inseridos em subdomínios.
+    Regra de apoio ao hunt TH-EXF-001; isoladamente, gera ruído e não deve ser
+    usada como alerta sem a correlação abaixo e sem a triagem do hunt.
+references:
+    - https://attack.mitre.org/techniques/T1048/003/
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+tags:
+    - attack.exfiltration
+    - attack.t1048.003
+    - attack.command-and-control
+    - attack.t1071.004
+logsource:
+    category: dns
+detection:
+    selection:
+        query|re: '^[A-Za-z0-9_-]{50,63}\.'
+    filter_reverse:
+        query|endswith:
+            - '.in-addr.arpa'
+            - '.ip6.arpa'
+    condition: selection and not filter_reverse
+falsepositives:
+    - Serviços de reputação e de antimalware que consultam hashes ou identificadores via DNS
+    - Serviços de nuvem, CDN e telemetria que usam nomes gerados automaticamente
+    - Listas de bloqueio baseadas em DNS consultadas por servidores de e-mail
+level: low
+---
+title: TH-EXF-001 - Volume de rótulos longos únicos por host
+id: 797c81b2-5f05-44bb-9815-2e64bb5905a3
+status: experimental
+description: >-
+    Correlaciona a regra de rótulo longo: um mesmo host gerando muitos nomes
+    longos distintos em uma hora. O limiar é uma referência e deve ser calibrado
+    pelo baseline de cada ambiente.
+author: Eduardo Fernandes Mateus
+date: 2026-11-03
+correlation:
+    type: value_count
+    rules:
+        - th_exf_001_rotulo_longo
+    group-by:
+        - src_ip
+    timespan: 1h
+    condition:
+        gte: 100
+        field: query
+falsepositives:
+    - Os mesmos da regra de rótulo longo, quando um serviço legítimo gera alto volume
+level: medium

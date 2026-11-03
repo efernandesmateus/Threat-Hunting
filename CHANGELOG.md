@@ -10,6 +10,27 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Não lançado]
 
+## [0.4.0] - 2026-11-03
+
+### Adicionado
+
+- `03-biblioteca/exfiltration/th-exf-001-exfiltracao-via-dns.md` (v1.0): primeiro hunt da biblioteca, exfiltração de dados via DNS (T1048.003), com status **Proposto**.
+- `03-biblioteca/exfiltration/th-exf-001-exfiltracao-via-dns.yml`: regras Sigma de apoio (rótulo longo e correlação por host), com sintaxe verificada.
+- ADR 0005: formato das consultas (pseudoconsulta obrigatória, regra Sigma recomendada, traduções por plataforma fora do repositório) e regra para citar ferramentas de adversários.
+- ADR 0006: validação dos hunts pelo adotante; a biblioteca passa a ser de referência.
+- Seção "Contribuindo com validações" no `CONTRIBUTING.md`.
+- Índice da biblioteca, com os 11 hunts planejados, o backlog futuro e as táticas sem hunt previsto (com justificativa), em `03-biblioteca/README.md`.
+- Roadmap do `README.md` dividido entre metodologia (até a v1.0.0) e biblioteca (a partir da v1.1.0).
+
+### Alterado
+
+- `02-templates/template-hunt.md` (v1.1): seção 8 reorganizada em pseudoconsulta, regra Sigma e implementações por plataforma; seção 9 dividida em orientação de validação e validações registradas; campo de versão do ATT&CK no cabeçalho.
+- `02-templates/README.md`: dois níveis de status (na biblioteca: Rascunho, Proposto, Validado pela comunidade, Descontinuado; operacional, no ambiente de quem adota: Em validação, Ativo, Automatizado) e nova regra de versionamento.
+- `01-processo/desenvolvimento-de-hunts.md`: diferença entre a publicação na biblioteca e a validação pelo adotante.
+- `README.md`: aviso sobre o status dos hunts.
+- `CONTRIBUTING.md`: seção de consultas alinhada ao ADR 0005.
+- `01-processo/escalonamento.md`: rótulo encurtado no diagrama do modo somente notificação.
+
 ## [0.3.0] - 2026-11-03
 
 ### Adicionado

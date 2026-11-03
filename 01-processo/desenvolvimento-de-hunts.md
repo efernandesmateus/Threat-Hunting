@@ -1,6 +1,8 @@
 # Desenvolvimento de hunts
 
-Processo para criar um hunt novo e levá-lo de **Rascunho** a **Ativo** na biblioteca. Cada etapa preenche uma ou mais seções do [template de hunt](../02-templates/template-hunt.md).
+Processo para criar um hunt novo e levá-lo de **Rascunho** a **Ativo**. Cada etapa preenche uma ou mais seções do [template de hunt](../02-templates/template-hunt.md).
+
+> **Biblioteca pública × ambiente do time.** Neste repositório, os hunts são publicados como **Proposto** depois das etapas 1, 2, 3, 5 e 7, sem as etapas de teste. As etapas **4 e 6** (dados de teste e validação) são executadas por **quem adota o hunt**, no próprio ambiente, antes de usá-lo em clientes (ver [ADR 0006](../decisoes/0006-validacao-pelo-adotante.md) e os [dois níveis de status](../02-templates/README.md#dois-níveis-de-status)).
 
 Quem desenvolve: Hunter Sênior (responsável) com apoio de Hunters. Quem aprova: Líder de Hunting (ver [RACI](../00-servico/papeis-e-responsabilidades.md#3-matriz-raci--soc--cliente)).
 
@@ -19,7 +21,7 @@ flowchart TD
     I --> J{Detecta o teste com ruído aceitável?}
     J -- Não --> H
     J -- Sim --> K[7. Documentar e revisar]
-    K --> L[Hunt Ativo na biblioteca]
+    K --> L[Hunt Ativo]
 ```
 
 | Etapa | Status do hunt | Seções do template |
@@ -89,7 +91,7 @@ Reproduzir a técnica em **ambiente de laboratório** para saber exatamente como
 
 1. **Baseline:** descrever o comportamento normal e como levantá-lo em um cliente novo.
 2. **Estratégia:** escrever a lógica da busca **sem sintaxe**, indicando as técnicas de análise (stacking, enriquecimento, agrupamento, palavra-chave, IOC, análise temporal).
-3. **Consultas:** implementar a estratégia em cada plataforma. Consulta não testada fica como `TODO: validar`.
+3. **Consultas:** implementar a estratégia em cada plataforma. Consulta não testada fica como **Não validada**.
 
 **Saída:** seções 6 (Baseline), 7 (Estratégia) e 8 (Consultas).
 
@@ -112,7 +114,7 @@ A validação histórica pode ser feita em dados de clientes, desde que autoriza
 
 1. Completar as seções restantes: triagem (10), falsos positivos (11), ação ao encontrar (12), outros achados (13), automação (14) e referências (15).
 2. Estimar o esforço por execução, no cabeçalho.
-3. Abrir o pull request, conforme o [CONTRIBUTING](../CONTRIBUTING.md#6-fluxo-de-trabalho-no-git).
+3. Abrir o pull request, conforme o [CONTRIBUTING](../CONTRIBUTING.md#7-fluxo-de-trabalho-no-git).
 4. **Revisão por pares:** outro analista revisa o hunt. O revisor verifica, no mínimo:
    - se a hipótese é testável e corresponde ao objetivo;
    - se as consultas implementam a estratégia descrita;
